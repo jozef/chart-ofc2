@@ -1,0 +1,25 @@
+{
+"title" : {
+"text" : "Default Chart Title",
+"style" : "{font-size:20px; font-family:Verdana; text-align:center;}"},
+"y_axis" : {
+"steps" : 5,
+"max" : 20},
+"x_axis" : {
+"labels" : {
+"labels" : ["January","February","March","April","May"]}},
+"elements" : [{
+"colours" : ["#8bde05","#c5f255","#8a08ec","#724f5e","#c58eeb"],
+"alpha" : 0.5,
+"animate" : 0,
+"values" : [6,9,14,12,6],
+"type" : "pie",
+"start-angle" : 0,
+"border" : 2},{
+"alpha" : 0.5,
+"text" : "text",
+"colour" : "#7959b1",
+"values" : [10,11,12,13,14,15],
+"type" : "bar",
+"font-size" : 10}]
+}
