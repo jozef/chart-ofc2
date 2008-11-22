@@ -1,4 +1,15 @@
 package Chart::OFC2::Scatter;
+
+=head1 NAME
+
+Chart::OFC2::Scatter - OFC2 Scatter chart
+
+=head1 NOT IMPLEMENTED JET
+
+TBD
+
+=begin skip
+
 our @ISA = qw(element);
 
 sub new() {
@@ -52,5 +63,7 @@ sub set_extremes {
     }
     $self->{'extremes'} = $extremes;
 }
+
+=cut
 
 1;

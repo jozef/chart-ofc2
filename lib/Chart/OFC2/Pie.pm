@@ -1,5 +1,15 @@
 package Chart::OFC2::Pie;
 
+=head1 NAME
+
+Chart::OFC2::Pie - OFC2 Pie chart
+
+=head1 NOT IMPLEMENTED JET
+
+TBD
+
+=begin skip
+
 use strict;
 use warnings;
 
@@ -34,5 +44,7 @@ sub new {
 
     return $self;
 }
+
+=cut
 
 1;

@@ -1,4 +1,15 @@
 package Chart::OFC2::Line;
+
+=head1 NAME
+
+Chart::OFC2::Line - OFC2 Line chart
+
+=head1 NOT IMPLEMENTED JET
+
+TBD
+
+=begin skip
+
 our @ISA = qw(bar_and_line_base);
 
 sub new() {
@@ -58,5 +69,7 @@ sub new() {
     $self->{'element_props'}->{'fill-alpha'} = 0.6;
     return $self;
 }
+
+=cut
 
 1;

@@ -1,7 +1,65 @@
 package Chart::OFC2;
 
+=head1 NAME
+
+Chart::OFC2 - Generate html and data files for use with Open Flash Chart version 2
+
+=head1 SYNOPSIS
+
+OFC2 html:
+
+    use Chart::OFC2;
+    
+    my $chart = Chart::OFC2->new(
+        'title'  => 'Bar chart test',
+    );
+    print $chart->render_swf(600, 400, 'chart-data.json', 'test-chart');
+
+OFC2 bar chart data:
+
+    use Chart::OFC2;
+    use Chart::OFC2::Axis;
+    use Chart::OFC2::Bar;
+    
+    my $chart = Chart::OFC2->new(
+        'title'  => 'Bar chart test',
+        'x_axis' => Chart::OFC2::XAxis->new(
+            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May' ],
+        ),
+    );
+    
+    my $bar = Chart::OFC2::Bar->new();
+    $bar->values([ 1..5 ]);
+    $chart->add_element($bar);
+
+    print $chart->render_chart_data();
+
+=head1 WARNING
+
+Current version implements just subset of functionality that Open Flash
+Chart 2 is offering. But it should help you to starting creating OFC2
+graphs quite fast. The JSON format is quite intuitive and can be created
+from any hash. This module is more like guideline.
+
+This is early version so the API B<WILL> change, be careful when upgrading
+versions.
+
+=head1 DESCRIPTION
+
+OFC2 is a flash script for creating graphs. To have a graph we need an
+F<open-flash-chart.swf> and a JSON data file describing graph data.
+Complete example you can find after successful run of this module
+tests in F<t/output/> folder. F<t/output/index.html> is a page
+containing two (bar and pie) graphs, F<t/output/bad-data.json> and
+F<t/output/pie-data.json> are the data files.
+
+=cut
+
+
 use Moose;
 use Moose::Util::TypeConstraints;
+
+our $VERSION = '0.01';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();
@@ -13,6 +71,18 @@ use Chart::OFC2::Extremes;
 use List::Util 'min', 'max';
 use List::MoreUtils 'any';
 
+=head1 PROPERTIES
+
+    has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
+    has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
+    has 'title'          => (is => 'rw', isa => 'Chart-OFC2-Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
+    has 'x_axis'         => (is => 'rw', isa => 'Chart-OFC2-XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
+    has 'y_axis'         => (is => 'rw', isa => 'Chart-OFC2-YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
+    has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
+    has 'extremes'       => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
+
+=cut
+
 has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart-OFC2-Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
@@ -23,12 +93,26 @@ has 'extremes'       => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => s
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
 
 
+=head1 METHODS
+
+=head2 new()
+
+Object constructor.
+
+=head2 get_element($type)
+
+Returns new chart object of selected type. Currently only C<bar> and C<pie>
+is available.
+
+=cut
+
 # elements are the data series items, usually containing values to plot
 sub get_element {
     my ($self, $element_name) = @_;
     
     my $element_module = (
-        $element_name eq 'bar' ? 'Chart::OFC2::Bar'
+          $element_name eq 'bar' ? 'Chart::OFC2::Bar'
+        : $element_name eq 'pie' ? 'Chart::OFC2::Pie'
         : undef
     );
     croak 'unsupported element - ', $element_name
@@ -36,6 +120,13 @@ sub get_element {
     
     return $element_module->new();
 }
+
+
+=head2 add_element($element)
+
+Adds passed element to the graph.
+
+=cut
 
 sub add_element {
     my ($self, $element) = @_;
@@ -47,6 +138,13 @@ sub add_element {
     
     push(@{ $self->elements }, $element);
 }
+
+
+=head2 render_chart_data
+
+Returns stringified JSON encoded graph data.
+
+=cut
 
 sub render_chart_data {
     my $self = shift;
@@ -60,6 +158,13 @@ sub render_chart_data {
         'elements' => $self->elements,
     });
 }
+
+
+=head2 auto_extremes 
+
+Recalculate graph auto extremes.
+
+=cut
 
 sub auto_extremes {
     my $self = shift;
@@ -78,6 +183,16 @@ sub auto_extremes {
     
     return;
 }
+
+
+=head2 render_swf($width, $height, $data_url, $div_id)
+
+Returns html snippet that will represent one graph in a html document.
+
+WARN: the arguments format will change to C<key => value> in the next
+releases.
+
+=cut
 
 sub render_swf {
     my ($self, $width, $height, $data_url, $div_id) = @_;
@@ -134,87 +249,15 @@ sub render_swf {
     return $html;
 }
 
-=head1 GENERAL HELPERS
+
+=head1 FUNCTIONS
+
+=head2 smoother_number
+
+round the number up a bit to a nice round number also changes number to an int
 
 =cut
 
-sub to_json {
-    my ($data_structure, $name) = @_;
-
-    my $tmp = '';
-
-    if (defined($name) && $name ne '') {
-        $name =~ s/\"/\'/gi;
-        $tmp .= "\n\"$name\" : ";
-    }
-
-    if (ref $data_structure eq 'ARRAY') {
-        $tmp .= "[";
-        for (@$data_structure) {
-            $tmp .= to_json($_, '');
-        }
-        $tmp =~ s/,$//g;
-        $tmp .= "]";
-    }
-    elsif (ref $data_structure eq 'HASH') {
-        $tmp .= "{" if defined($name);
-        for (keys %{$data_structure}) {
-            $tmp .= to_json($data_structure->{$_}, $_ || '');
-        }
-        $tmp =~ s/,$//g;
-        $tmp .= "}" if defined($name);
-
-    }
-    else {
-
-        if (!defined($data_structure)) {
-            return;
-        }
-
-        if ($data_structure =~ /^-{0,1}[\d.]+$/) {
-
-            #number
-            $tmp .= $data_structure;
-        }
-        else {
-
-            #not number
-            $data_structure =~ s/\"/\'/gi;
-            $tmp .= "\"$data_structure\"";
-        }
-    }
-
-    return $tmp . ',';
-}
-
-sub random_color {
-    my @hex;
-    for (my $i = 0 ; $i < 64 ; $i++) {
-        my ($rand, $x);
-        for ($x = 0 ; $x < 3 ; $x++) {
-            $rand = rand(255);
-            $hex[$x] = sprintf("%x", $rand);
-            if ($rand < 9) {
-                $hex[$x] = "0" . $hex[$x];
-            }
-            if ($rand > 9 && $rand < 16) {
-                $hex[$x] = "0" . $hex[$x];
-            }
-        }
-    }
-    return "\#" . $hex[0] . $hex[1] . $hex[2];
-}
-
-# URL-encode string
-sub url_escape {
-    my ($toencode) = @_;
-    $toencode =~ s/([^a-zA-Z0-9_\-. ])/uc sprintf("%%%02x",ord($1))/eg;
-    $toencode =~ tr/ /+/;                                                 # spaces become pluses
-    return $toencode;
-}
-
-# round the number up a bit to a nice round number
-# also changes number to an int
 sub smoother_number {
     my $number  = shift;
     my $min_max = shift;
@@ -239,6 +282,13 @@ sub smoother_number {
     return int($n);
 }
 
+
+=head2 smooth($axis_name, $axis_type)
+
+Smooth axis min/max.
+
+=cut
+
 sub smooth {
     my $self      = shift;
     my $axis_name = shift;
@@ -262,3 +312,30 @@ sub smooth {
 }
 
 1;
+
+
+__END__
+
+=head1 NOTE
+
+Refresh button will not cause the data file of the graph to be reloaded
+so either use proper expiration settings for it or change the name of the
+file in html every time you generate new data. Like C<"data.json?".time()>.
+
+=head1 SEE ALSO
+
+L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>
+
+=head1 COPYRIGHT AND LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+Jozef Kutej
+
+I've used some of the code from the F<perl-ofc-library/open_flash_chart.pm>
+that is shipped together with all the rest OFC2 files.
+
+=cut

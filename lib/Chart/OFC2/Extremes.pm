@@ -1,18 +1,64 @@
 package Chart::OFC2::Extremes;
 
+=head1 NAME
+
+Chart::OFC2::Extremes - OFC2 axis or chart extremes
+
+=head1 SYNOPSIS
+
+    use Chart::OFC2::Extremes;
+    
+    has 'extremes' => (
+        is      => 'rw',
+        isa     => 'Chart-OFC2-Extremes',
+        default => sub { Chart::OFC2::Extremes->new() },
+        lazy    => 1,
+    );
+    
+    $self->extremes->reset();
+
+=head1 DESCRIPTION
+
+=cut
+
 use Moose;
 use Moose::Util::TypeConstraints;
 use Carp::Clan 'croak';
 
+our $VERSION = '0.01';
+
 subtype 'Chart-OFC2-Extremes'
     => as 'Object'
     => where { $_[0]->isa('Chart::OFC2::Extremes') };
+
+=head1 PROPERTIES
+
+    has 'x_axis_max' => (is => 'rw', isa => 'Num|Undef', );
+    has 'x_axis_min' => (is => 'rw', isa => 'Num|Undef', );
+    has 'y_axis_max' => (is => 'rw', isa => 'Num|Undef', );
+    has 'y_axis_min' => (is => 'rw', isa => 'Num|Undef', );
+    has 'other'      => (is => 'rw', isa => 'Num|Undef', );
+
+=cut
 
 has 'x_axis_max' => (is => 'rw', isa => 'Num|Undef', );
 has 'x_axis_min' => (is => 'rw', isa => 'Num|Undef', );
 has 'y_axis_max' => (is => 'rw', isa => 'Num|Undef', );
 has 'y_axis_min' => (is => 'rw', isa => 'Num|Undef', );
 has 'other'      => (is => 'rw', isa => 'Num|Undef', );
+
+
+=head1 METHODS
+
+=head2 new()
+
+Object constructor.
+
+=head2 reset($axis_type, $values)
+
+Calculate x or y minimal and maximal values and set (x|y)_axis_(min|max) according.
+
+=cut
 
 sub reset {
     my $self      = shift;
@@ -49,6 +95,13 @@ sub reset {
     $self->$axis_max($max);
 }
 
+
+=head2 TO_JSON()
+
+Returns HashRef that is possible to give to C<encode_json()> function.
+
+=cut
+
 sub TO_JSON {
     my $self = shift;
     
@@ -62,3 +115,12 @@ sub TO_JSON {
 }
 
 1;
+
+
+__END__
+
+=head1 AUTHOR
+
+Jozef Kutej
+
+=cut
