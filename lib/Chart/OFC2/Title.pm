@@ -13,4 +13,13 @@ coerce 'Chart-OFC2-Title'
 has 'text'  => (is => 'rw', isa => 'Str', Default => '');
 has 'style' => (is => 'rw', isa => 'Str', Default => '{font-size:20px; font-family:Verdana; text-align:center;}');
 
+sub to_hash {
+    my $self = shift;
+    
+    return {
+        'text'  => $self->text,
+        'style' => $self->style,
+    };
+}
+
 1;

@@ -56,14 +56,14 @@ sub main {
     is($y_axis_r->name, 'y_axis_right', 'check default name');
     
     eq_or_diff(
-        { $x_axis->to_key_value() },
-        { 'x_axis' => \%x_axis_attributes },
+        $x_axis->to_hash,
+        \%x_axis_attributes,
         'x axis hash encoding'
     );
     
     eq_or_diff(
-        { $y_axis->to_key_value() },
-        { 'y_axis' => \%y_axis_attributes },
+        $y_axis->to_hash,
+        \%y_axis_attributes,
         'y axis hash encoding'
     );
     

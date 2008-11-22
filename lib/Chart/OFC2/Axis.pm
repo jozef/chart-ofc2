@@ -22,16 +22,14 @@ has 'visible' => ( is => 'rw', isa => 'Bool',  );
 has 'min' => ( is => 'rw', isa => 'Int|Undef', );
 has 'max' => ( is => 'rw', isa => 'Int|Undef', );
 
-sub to_key_value {
+sub to_hash {
     my ($self) = @_;
     
-    return
-        $self->name => {
-            map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
-            grep { $_ ne 'name' }
-            map  { $_->name } $self->meta->compute_all_applicable_attributes
-        }
-    ;
+    return {
+        map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
+        grep { $_ ne 'name' }
+        map  { $_->name } $self->meta->compute_all_applicable_attributes
+    };
 }
 
 1;
