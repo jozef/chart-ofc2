@@ -49,7 +49,7 @@ sub reset {
     $self->$axis_max($max);
 }
 
-sub to_hash {
+sub TO_JSON {
     my $self = shift;
     
     return {

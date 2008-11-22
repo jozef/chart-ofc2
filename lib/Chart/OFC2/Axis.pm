@@ -3,6 +3,8 @@ package Chart::OFC2::Axis;
 use Moose;
 use Moose::Util::TypeConstraints;
 
+use Chart::OFC2::Labels;
+
 subtype 'Chart-OFC2-YAxis'
     => as 'Object'
     => where { $_[0]->isa('Chart::OFC2::YAxis') };
@@ -11,18 +13,18 @@ subtype 'Chart-OFC2-XAxis'
     => where { $_[0]->isa('Chart::OFC2::XAxis') };
 
 has 'name'   => ( is => 'rw', isa => enum(['x_axis', 'y_axis', 'y_axis_right']), required => 1 );
-has 'labels' => ( is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1 );
+has 'labels' => ( is => 'rw', isa => 'Chart-OFC2-Labels', coerce  => 1);
 has 'stroke' => ( is => 'rw', isa => 'Int', );
-has 'color' => ( is => 'rw', isa => 'Str', default => '#D7E4A3', );
+has 'color' => ( is => 'rw', isa => 'Str',  );
 has 'offset' => ( is => 'rw', isa => 'Bool', );
-has 'grid_color' => ( is => 'rw', isa => 'Str', default => '#A2ACBA', );
+has 'grid_color' => ( is => 'rw', isa => 'Str', );
 has '3d' => ( is => 'rw', isa => 'Bool', );
 has 'steps' => ( is => 'rw', isa => 'Int', );
 has 'visible' => ( is => 'rw', isa => 'Bool',  );
-has 'min' => ( is => 'rw', isa => 'Int|Undef', );
-has 'max' => ( is => 'rw', isa => 'Int|Undef', );
+has 'min' => ( is => 'rw', isa => 'Num|Str|Undef', );   # can be 'a' for auto too
+has 'max' => ( is => 'rw', isa => 'Num|Str|Undef', );   # can be 'a' for auto too
 
-sub to_hash {
+sub TO_JSON {
     my ($self) = @_;
     
     return {
@@ -40,7 +42,7 @@ use Moose;
 extends 'Chart::OFC2::Axis';
 
 has '+name'        => ( default => 'x_axis', );
-has 'tick_height' => ( is => 'rw', isa => 'Int', default => 5 );
+has 'tick_height' => ( is => 'rw', isa => 'Int', );
 
 1;
 
@@ -50,7 +52,7 @@ use Moose;
 extends 'Chart::OFC2::Axis';
 
 has '+name'        => ( default => 'y_axis' );
-has 'tick_length' => ( is => 'rw', isa => 'Int', default => 5 );
+has 'tick_length' => ( is => 'rw', isa => 'Int', );
 
 1;
 

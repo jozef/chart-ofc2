@@ -20,7 +20,7 @@ sub main {
     my $extremes = Chart::OFC2::Extremes->new();
     
     eq_or_diff(
-        $extremes->to_hash,
+        $extremes->TO_JSON,
         {
             'x_axis_max' => undef,
             'x_axis_min' => undef, 
@@ -35,7 +35,7 @@ sub main {
     $extremes->reset('y' => [ 3, ]);
     
     eq_or_diff(
-        $extremes->to_hash,
+        $extremes->TO_JSON,
         {
             'x_axis_max' => 5,
             'x_axis_min' => 1, 
@@ -50,7 +50,7 @@ sub main {
     $extremes->reset('y' => [ undef,undef,100,100.5, ]);
 
     eq_or_diff(
-        $extremes->to_hash,
+        $extremes->TO_JSON,
         {
             'x_axis_max' => 6,
             'x_axis_min' => 0, 
@@ -65,7 +65,7 @@ sub main {
     $extremes->reset('y' => [ undef,undef,100,100.5, [ [ undef ], [ 99 ], [ 101 ] ], ]);
 
     eq_or_diff(
-        $extremes->to_hash,
+        $extremes->TO_JSON,
         {
             'x_axis_max' => 5,
             'x_axis_min' => -1, 

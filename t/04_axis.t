@@ -56,14 +56,14 @@ sub main {
     is($y_axis_r->name, 'y_axis_right', 'check default name');
     
     eq_or_diff(
-        $x_axis->to_hash,
-        \%x_axis_attributes,
+        $x_axis->TO_JSON,
+        { %x_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),},
         'x axis hash encoding'
     );
     
     eq_or_diff(
-        $y_axis->to_hash,
-        \%y_axis_attributes,
+        $y_axis->TO_JSON,
+        { %y_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),},
         'y axis hash encoding'
     );
     

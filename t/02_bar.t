@@ -5,6 +5,8 @@ use warnings;
 
 use Test::More 'no_plan';
 #use Test::More tests => 3;
+use Test::Differences;
+
 use File::Slurp 'write_file';
 use File::Spec;
 
@@ -21,14 +23,28 @@ BEGIN {
 exit main();
 
 sub main {
-    my $chart = Chart::OFC2->new();
+    my $chart = Chart::OFC2->new(
+        'title'  => 'Bar chart test',
+#        'x_axis' => Chart::OFC2::XAxis->new(
+#            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+#        ),
+    );
     
     my $bar = Chart::OFC2::Bar->new();
-    $bar->set_values([ map { 12 - $_ } 0..5 ]);
+    $bar->values([ map { 12 - $_ } 0..5 ]);
     $chart->add_element($bar);
 
+    eq_or_diff(
+        $bar->TO_JSON,
+        {
+            'type'   => 'bar',
+            'values' => [ 12,11,10,9,8,7 ],
+        },
+        'bar element TO_JSON'
+    );
+
     my $bar2 = Chart::OFC2::Bar::Filled->new();
-    $bar2->set_values([ 10..15 ]);
+    $bar2->values([ 10..15 ]);
     $chart->add_element($bar2);
     
     my $chart_data = $chart->render_chart_data();
@@ -39,64 +55,3 @@ sub main {
     
     return 0;
 }
-
-
-__END__
-
-<%@ Language="PerlScript"%>
-<% 
-
-# For this test you must have an iis webserver with the perlscript dll installed as a language.
-# Also you'll need the open-flash-chart.swf file and the open_flash_chart.pm files together with this one
-#
-
-use strict; 
-our ($Server, $Request, $Response);
-use lib $Server->mappath('.');
-use open_flash_chart;
-
-my $g = chart->new();
-
-if ( $Request->QueryString("data")->Item == 1 ) {
-
-  
-  my $e = $g->get_element('bar');
-  my $data = [];
-	for( my $i=0; $i<5; $i++ ) {
-		push ( @$data, rand(20) );
-	}
-  $e->set_values($data);
-  $g->add_element($e);
-
-  
-  $e = $g->get_element('bar_filled');
-  my $data = [];
-	for( my $i=0; $i<5; $i++ ) {
-		push ( @$data, rand(40) );
-	}
-  $e->set_values($data);
-  $g->add_element($e);  
-
- 
-	$Response->write($g->render_chart_data());
-  $Response->exit();
-
-} else {
-  
-%>
-<html>
-  <head>
-    <title>OFC Bar Test</title>
-  </head>
-  <body>
-    <h1>OFC Bar Test</h1>
-<%
-    $Response->write($g->render_swf(600, 400, '?data=1&'.time()));
-%>
-<!--#INCLUDE FILE = "list_all_tests.inc"-->
-
-</body>
-</html>
-<%  
-}
-%>

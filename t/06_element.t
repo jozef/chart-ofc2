@@ -23,17 +23,16 @@ sub main {
     );
     
     eq_or_diff(
-        $element->to_hash,
+        $element->TO_JSON,
         {
-            'type_name'    => 'bar',
-            'values'       => [ 3,2,1,4,5 ],
-            'use_extremes' => 0,
+            'type'   => 'bar',
+            'values' => [ 3,2,1,4,5 ],
         },
         'element create'
     );
     
     eq_or_diff(
-        $element->extremes->to_hash,
+        $element->extremes->TO_JSON,
         {
             'x_axis_max' => undef,
             'x_axis_min' => undef, 

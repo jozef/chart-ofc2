@@ -10,15 +10,16 @@ coerce 'Chart-OFC2-Title'
     => from 'Str'
     => via { Chart::OFC2::Title->new('text' => $_) };
 
-has 'text'  => (is => 'rw', isa => 'Str', Default => '');
-has 'style' => (is => 'rw', isa => 'Str', Default => '{font-size:20px; font-family:Verdana; text-align:center;}');
+has 'text'  => (is => 'rw', isa => 'Str', );
+has 'style' => (is => 'rw', isa => 'Str', );
 
-sub to_hash {
+sub TO_JSON {
     my $self = shift;
     
     return {
-        'text'  => $self->text,
-        'style' => $self->style,
+        map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
+        map  { $_->name }
+        $self->meta->compute_all_applicable_attributes
     };
 }
 

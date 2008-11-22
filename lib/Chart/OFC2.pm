@@ -4,20 +4,23 @@ use Moose;
 use Moose::Util::TypeConstraints;
 
 use Carp::Clan 'croak';
-use JSON::XS 'encode_json';
+use JSON::XS qw();
 
 use Chart::OFC2::Axis;
 use Chart::OFC2::Bar;
 use Chart::OFC2::Title;
 use Chart::OFC2::Extremes;
+use List::Util 'min', 'max';
+use List::MoreUtils 'any';
 
 has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart-OFC2-Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
-has 'x_axis'         => (is => 'rw', isa => 'Chart-OFC2-XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1 );
-has 'y_axis'         => (is => 'rw', isa => 'Chart-OFC2-YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1 );
+has 'x_axis'         => (is => 'rw', isa => 'Chart-OFC2-XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
+has 'y_axis'         => (is => 'rw', isa => 'Chart-OFC2-YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
 has 'extremes'       => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
+has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
 
 
 # elements are the data series items, usually containing values to plot
@@ -36,55 +39,44 @@ sub get_element {
 
 sub add_element {
     my ($self, $element) = @_;
+    
     if ($element->use_extremes) {
-        $self->use_extremes();
+        $self->y_axis->max('a');
+        $self->y_axis->min('a');
     }
+    
     push(@{ $self->elements }, $element);
 }
 
-sub use_extremes {
-    my ($self) = @_;
+sub render_chart_data {
+    my $self = shift;
+
+    $self->auto_extremes();
     
-    $self->x_axis->max('a');
-    $self->x_axis->min('a');
-    $self->y_axis->max('a');
-    $self->y_axis->min('a');
+    return $self->_json->encode({
+        'title'    => $self->title,
+        'x_axis'   => $self->x_axis,
+        'y_axis'   => $self->y_axis,
+        'elements' => $self->elements,
+    });
 }
 
-sub render_chart_data {
-    my ($self) = @_;
-
-    my $tmp = '';
-
-    my $ext = $self->get_auto_extremes();
+sub auto_extremes {
+    my $self = shift;
+        
+    foreach my $axis_name ('x_axis', 'y_axis') {
+        my $axis = $self->$axis_name;
+        next if not defined $axis;
+        
+        foreach my $axis_type ('min', 'max') {
+            my $axis_value = $axis->$axis_type;
+            if ((defined $axis_value) and ($axis_value eq 'a')) {
+                $axis->$axis_type($self->smooth($axis_name, $axis_type));
+            }
+        }
+    }
     
-    return '{}';
-
-    $tmp .= "{";
-    $tmp .= to_json($self->{'chart_props'});
-
-    for (keys %{ $self->{'axis'} }) {
-        if ($self->{'axis'}->{$_}->{'props'}->{'max'} eq 'a') {
-            $self->{'axis'}->{$_}->{'props'}->{'max'} = smooth_max($ext->{ $_ . '_max' });
-        }
-        if ($self->{'axis'}->{$_}->{'props'}->{'min'} eq 'a') {
-            $self->{'axis'}->{$_}->{'props'}->{'min'} = smooth_min($ext->{ $_ . '_min' });
-        }
-        $tmp .= $self->{'axis'}->{$_}->to_json();
-    }
-
-    if (@{ $self->{'elements'} } > 0) {
-        $tmp .= "\n" . '"elements" : [';
-        for my $s (@{ $self->{'elements'} }) {
-            $tmp .= $s->to_json() . ',';
-        }
-        $tmp =~ s/,$//g;
-        $tmp .= ']';
-    }
-    $tmp =~ s/,$//g;
-    $tmp .= "\n}";
-
-    return $tmp;
+    return;
 }
 
 sub render_swf {
@@ -140,58 +132,6 @@ sub render_swf {
     }
 
     return $html;
-}
-
-#
-# control how the auto max works
-#
-# @param $smooth_rounding an int argument.
-#   1 or 0: rounds the y_max to the nearest 10, 50, 100, 200, or 500
-# @param $head_room an decimal argument.
-#   defines how much extra y scale you want above your highest data point
-#   defaults to 0.1 (or 10%) extra space at the top of a chart
-sub get_auto_extremes {
-    my ($self, $smooth_rounding, $head_room) = @_;
-    $smooth_rounding = 1   if !defined($smooth_rounding);
-    $head_room       = 0.1 if !defined($head_room);
-
-    my $extremes = {
-        'x_axis_max' => undef,
-        'x_axis_min' => undef,
-        'y_axis_max' => undef,
-        'y_axis_min' => undef,
-        'other'      => undef
-    };
-
-    for my $e (@{ $self->{'elements'} }) {
-
-        $extremes->{'x_axis_max'} = $e->{'extremes'}->{'x_axis_max'}
-          if !defined($extremes->{'x_axis_max'});
-        if ($e->{'extremes'}->{'x_axis_max'} > $extremes->{'x_axis_max'}) {
-            $extremes->{'x_axis_max'} = $e->{'extremes'}->{'x_axis_max'};
-        }
-
-        $extremes->{'y_axis_max'} = $e->{'extremes'}->{'y_axis_max'}
-          if !defined($extremes->{'y_axis_max'});
-        if ($e->{'extremes'}->{'y_axis_max'} > $extremes->{'y_axis_max'}) {
-            $extremes->{'y_axis_max'} = $e->{'extremes'}->{'y_axis_max'};
-        }
-
-        $extremes->{'x_axis_min'} = $e->{'extremes'}->{'x_axis_min'}
-          if !defined($extremes->{'x_axis_min'});
-        if ($e->{'extremes'}->{'x_axis_min'} < $extremes->{'x_axis_min'}) {
-            $extremes->{'x_axis_min'} = $e->{'extremes'}->{'x_axis_min'};
-        }
-
-        $extremes->{'y_axis_min'} = $e->{'extremes'}->{'y_axis_min'}
-          if !defined($extremes->{'y_axis_min'});
-        if ($e->{'extremes'}->{'y_axis_min'} < $extremes->{'y_axis_min'}) {
-            $extremes->{'y_axis_min'} = $e->{'extremes'}->{'y_axis_min'};
-        }
-
-    }
-
-    return $extremes;
 }
 
 =head1 GENERAL HELPERS
@@ -275,10 +215,13 @@ sub url_escape {
 
 # round the number up a bit to a nice round number
 # also changes number to an int
-sub smoother {
+sub smoother_number {
     my $number  = shift;
     my $min_max = shift;
     my $n       = $number;
+    
+    return
+        if not defined $number;
 
     if ($min_max eq 'max') {
         $n += 1;
@@ -296,14 +239,26 @@ sub smoother {
     return int($n);
 }
 
-sub smooth_max {
-    my $number = shift;
-    return smoother($number, 'max');
-}
-
-sub smooth_min {
-    my $number = shift;
-    return smoother($number, 'min');
+sub smooth {
+    my $self      = shift;
+    my $axis_name = shift;
+    my $axis_type = shift;
+    
+    my $extremes_name = $axis_name.'_'.$axis_type;
+    my $cmp_function  = ($axis_type eq 'min' ? \&min : \&max);
+    
+    my $number;
+    foreach my $element (@{$self->elements}) {
+        my $element_number = $element->extremes->$extremes_name;
+        
+        next
+            if not defined $element_number;
+        $number = $element_number
+            if not defined $number;
+        $number = $cmp_function->($number, $element_number);
+    }
+    
+    return smoother_number($number, $axis_type);
 }
 
 1;
