@@ -1,25 +1,11 @@
 package Chart::OFC2::BarLineBase;
 
-use strict;
-use warnings;
+use Moose;
 
-use base 'Chart::OFC2::Element';
+extends 'Chart::OFC2::Element';
 
-sub new {
-    my ($proto) = @_;
-    my $class = ref($proto) || $proto;
-    my $self = {};
-    bless $self, $class;
-    $self                                   = $self->SUPER::new();
-    $self->{'element_props'}->{'colour'}    = Chart::OFC2::random_color();
-    $self->{'element_props'}->{'text'}      = 'text';
-    $self->{'element_props'}->{'font-size'} = 10;
-
-    #$self->{'element_props'}->{'show_y2'} = 'false';
-    #$self->{'element_props'}->{'y2_lines'} = [];
-    #$self->{'element_props'}->{'values_2'} = [];
-
-    return $self;
-}
+has 'color'     => (is => 'rw', isa => 'Str', );
+has 'text'      => (is => 'rw', isa => 'Str', );
+has 'font_size' => (is => 'rw', isa => 'Int', );
 
 1;

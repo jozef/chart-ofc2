@@ -9,20 +9,7 @@ use JSON::XS 'encode_json';
 use Chart::OFC2::Axis;
 use Chart::OFC2::Bar;
 use Chart::OFC2::Title;
-
-
-subtype 'Chart-OFC2-YAxis'
-    => as 'Object'
-    => where { $_[0]->isa('Chart::OFC2::YAxis') };
-subtype 'Chart-OFC2-XAxis' 
-    => as 'Object'
-    => where { $_[0]->isa('Chart::OFC2::XAxis') };
-subtype 'Chart-OFC2-Title'
-    => as 'Object'
-    => where { $_[0]->isa('Chart::OFC2::Title') };
-coerce 'Chart-OFC2-Title'
-    => from 'Str'
-    => via { Chart::OFC2::Title->new('text' => $_) };
+use Chart::OFC2::Extremes;
 
 has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
@@ -30,6 +17,7 @@ has 'title'          => (is => 'rw', isa => 'Chart-OFC2-Title', default => sub {
 has 'x_axis'         => (is => 'rw', isa => 'Chart-OFC2-XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1 );
 has 'y_axis'         => (is => 'rw', isa => 'Chart-OFC2-YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1 );
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
+has 'extremes'       => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 
 
 # elements are the data series items, usually containing values to plot

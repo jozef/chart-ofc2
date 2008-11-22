@@ -25,8 +25,9 @@ sub main {
     eq_or_diff(
         $element->to_hash,
         {
-            'type_name' => 'bar',
-            'values'    => [ 3,2,1,4,5 ],
+            'type_name'    => 'bar',
+            'values'       => [ 3,2,1,4,5 ],
+            'use_extremes' => 0,
         },
         'element create'
     );

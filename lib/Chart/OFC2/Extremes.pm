@@ -1,7 +1,12 @@
 package Chart::OFC2::Extremes;
 
 use Moose;
+use Moose::Util::TypeConstraints;
 use Carp::Clan 'croak';
+
+subtype 'Chart-OFC2-Extremes'
+    => as 'Object'
+    => where { $_[0]->isa('Chart::OFC2::Extremes') };
 
 has 'x_axis_max' => (is => 'rw', isa => 'Num|Undef', );
 has 'x_axis_min' => (is => 'rw', isa => 'Num|Undef', );

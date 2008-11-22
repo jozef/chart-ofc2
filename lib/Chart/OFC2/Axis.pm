@@ -3,6 +3,13 @@ package Chart::OFC2::Axis;
 use Moose;
 use Moose::Util::TypeConstraints;
 
+subtype 'Chart-OFC2-YAxis'
+    => as 'Object'
+    => where { $_[0]->isa('Chart::OFC2::YAxis') };
+subtype 'Chart-OFC2-XAxis' 
+    => as 'Object'
+    => where { $_[0]->isa('Chart::OFC2::XAxis') };
+
 has 'name'   => ( is => 'rw', isa => enum(['x_axis', 'y_axis', 'y_axis_right']), required => 1 );
 has 'labels' => ( is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1 );
 has 'stroke' => ( is => 'rw', isa => 'Int', );
