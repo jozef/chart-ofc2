@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 4;
+use Test::More tests => 5;
 use Test::Differences;
 
 use FindBin qw($Bin);
@@ -59,6 +59,21 @@ sub main {
             'other'      => undef,
         },
         'x/y set again'
+    );
+    
+    $extremes->reset('x' => [ undef,undef,[ 1,2,undef,5,-1,3 ],3,0, ]);
+    $extremes->reset('y' => [ undef,undef,100,100.5, [ [ undef ], [ 99 ], [ 101 ] ], ]);
+
+    eq_or_diff(
+        $extremes->to_hash,
+        {
+            'x_axis_max' => 5,
+            'x_axis_min' => -1, 
+            'y_axis_max' => 101,
+            'y_axis_min' => 99,
+            'other'      => undef,
+        },
+        'x/y extremes in arrays of arrays'
     );
     
     return 0;

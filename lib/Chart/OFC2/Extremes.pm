@@ -3,11 +3,11 @@ package Chart::OFC2::Extremes;
 use Moose;
 use Carp::Clan 'croak';
 
-has 'x_axis_max' => (is => 'rw', isa => 'Num', );
-has 'x_axis_min' => (is => 'rw', isa => 'Num', );
-has 'y_axis_max' => (is => 'rw', isa => 'Num', );
-has 'y_axis_min' => (is => 'rw', isa => 'Num', );
-has 'other'      => (is => 'rw', isa => 'Num', );
+has 'x_axis_max' => (is => 'rw', isa => 'Num|Undef', );
+has 'x_axis_min' => (is => 'rw', isa => 'Num|Undef', );
+has 'y_axis_max' => (is => 'rw', isa => 'Num|Undef', );
+has 'y_axis_min' => (is => 'rw', isa => 'Num|Undef', );
+has 'other'      => (is => 'rw', isa => 'Num|Undef', );
 
 sub reset {
     my $self      = shift;
@@ -24,8 +24,15 @@ sub reset {
     
     my $max;
     my $min;
-    foreach my $value (@{$values}) {
+    my @values_to_check = @{$values};
+    while (scalar @values_to_check) {
+        my $value = shift @values_to_check;
+        
         next if not defined $value;
+        push @values_to_check, @{$value}
+            if ref $value eq 'ARRAY';
+        
+        next if ref $value ne '';
         
         $max = $value
             if ((not defined $max) or ($value > $max));
