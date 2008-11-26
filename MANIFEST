@@ -24,6 +24,8 @@ t/04_axis.t
 t/05_extremes.t
 t/06_element.t
 t/distribution.t
+t/output/_footer.html
+t/output/_header.html
 t/output/expressInstall.swf
 t/output/open-flash-chart.swf
 t/output/swfobject.js

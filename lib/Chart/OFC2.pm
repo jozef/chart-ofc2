@@ -59,7 +59,7 @@ F<t/output/pie-data.json> are the data files.
 use Moose;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();

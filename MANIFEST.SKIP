@@ -29,6 +29,6 @@
 \b\.#
 
 t/output/.*\.json
-t/output/.*\.html
+t/output/[^_].+\.html
 
 Chart-OFC2-.*\.tar\.gz
