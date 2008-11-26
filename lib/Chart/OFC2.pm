@@ -68,6 +68,7 @@ use Chart::OFC2::Axis;
 use Chart::OFC2::Bar;
 use Chart::OFC2::Title;
 use Chart::OFC2::Extremes;
+use Chart::OFC2::ToolTip;
 use List::Util 'min', 'max';
 use List::MoreUtils 'any';
 
@@ -80,6 +81,7 @@ use List::MoreUtils 'any';
     has 'y_axis'         => (is => 'rw', isa => 'Chart-OFC2-YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
     has 'extremes'       => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
+    has 'tooltip'        => (is => 'rw', isa => 'Chart-OFC2-ToolTip',);
 
 =cut
 
@@ -91,6 +93,7 @@ has 'y_axis'         => (is => 'rw', isa => 'Chart-OFC2-YAxis', default => sub {
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
 has 'extremes'       => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
+has 'tooltip'        => (is => 'rw', isa => 'Chart-OFC2-ToolTip', coerce  => 1);
 
 
 =head1 METHODS
@@ -155,6 +158,7 @@ sub render_chart_data {
         'title'    => $self->title,
         'x_axis'   => $self->x_axis,
         'y_axis'   => $self->y_axis,
+        'tooltip'  => $self->tooltip,
         'elements' => $self->elements,
     });
 }
