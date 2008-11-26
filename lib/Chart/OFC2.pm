@@ -85,6 +85,10 @@ use List::MoreUtils 'any';
 
 =cut
 
+subtype 'Chart-OFC2-NaturalInt'
+    => as 'Int'
+    => where { $_ > 0 };
+
 has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart-OFC2-Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);

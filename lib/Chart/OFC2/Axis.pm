@@ -22,6 +22,7 @@ use Moose::Util::TypeConstraints;
 
 our $VERSION = '0.01';
 
+use Chart::OFC2;
 use Chart::OFC2::Labels;
 
 
@@ -69,7 +70,7 @@ has 'colour'      => ( is => 'rw', isa => 'Str',  );
 has 'offset'      => ( is => 'rw', isa => 'Bool', );
 has 'grid_colour' => ( is => 'rw', isa => 'Str', );
 has '3d'          => ( is => 'rw', isa => 'Bool', );
-has 'steps'       => ( is => 'rw', isa => 'Int', );
+has 'steps'       => ( is => 'rw', isa => 'Chart-OFC2-NaturalInt', );
 has 'visible'     => ( is => 'rw', isa => 'Bool',  );
 has 'min'         => ( is => 'rw', isa => 'Num|Str|Undef', );   # can be 'a' for auto too
 has 'max'         => ( is => 'rw', isa => 'Num|Str|Undef', );   # can be 'a' for auto too
