@@ -37,6 +37,8 @@ has 'extremes'     => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub
 has 'use_extremes' => (is => 'rw', isa => 'Bool',  default => 1 );
 has 'on-click'     => (is => 'rw', isa => 'Str', );
 has 'tip'          => (is => 'rw', isa => 'Str',);
+has 'alpha'        => (is => 'rw', isa => 'Num',);
+has 'colour'       => (is => 'rw', isa => 'Str',);
 
 
 =head1 METHODS

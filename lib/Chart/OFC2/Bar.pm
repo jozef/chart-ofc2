@@ -43,7 +43,6 @@ extends 'Chart::OFC2::BarLineBase';
 =cut
 
 has '+type_name' => (default => 'bar');
-has 'alpha'      => (is => 'rw', isa => 'Num',);
 
 1;
 

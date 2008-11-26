@@ -51,7 +51,6 @@ use Chart::OFC2::PieValues;
 =cut
 
 has '+type_name'    => (default => 'pie');
-has 'alpha'         => (is => 'rw', isa => 'Num',);
 has 'label-colour'  => (is => 'rw', isa => 'ArrayRef',);
 has 'border'        => (is => 'rw', isa => 'Str',);
 has 'animate'       => (is => 'rw', isa => 'Bool',);
