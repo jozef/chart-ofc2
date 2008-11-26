@@ -11,4 +11,5 @@
 /cover_db
 /t/output/bar.html
 /t/output/pie.html
+/t/output/hbar.html
 /t/output/*.json

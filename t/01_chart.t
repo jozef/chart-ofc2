@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 use File::Slurp 'write_file', 'read_file';
 
@@ -30,8 +30,9 @@ sub main {
     is($chart->title->text, 'test', 'title name coercion');
     
     my @charts = (
-        { 'title' => 'Bar test', 'id' => 'bar', },
-        { 'title' => 'Pie test', 'id' => 'pie', },
+        { 'title' => 'Bar test',  'id' => 'bar', },
+        { 'title' => 'Pie test',  'id' => 'pie', },
+        { 'title' => 'HBar test', 'id' => 'hbar', },
     );
     
     foreach my $chart (@charts) {

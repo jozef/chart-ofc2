@@ -24,7 +24,7 @@ subtype 'Chart-OFC2-PieValues'
 
 coerce 'Chart-OFC2-PieValues'
     => from 'ArrayRef'
-    => via { Chart::OFC2::PieValues->new_from_arrayref($_) };
+    => via { Chart::OFC2::PieValues->_new_from_arrayref($_) };
 
 =head1 PROPERTIES
 
@@ -44,11 +44,13 @@ has 'colours' => ( is => 'rw', isa => 'ArrayRef', );
 
 Object constructor.
 
-=head1 new_from_arrayref
+=head1 _new_from_arrayref
+
+Allow object creation by coerce of ArrayRef.
 
 =cut
 
-sub new_from_arrayref {
+sub _new_from_arrayref {
     my $class           = shift;
     my $arrayref_values = shift;
     

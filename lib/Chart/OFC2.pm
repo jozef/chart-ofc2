@@ -48,10 +48,10 @@ versions.
 
 OFC2 is a flash script for creating graphs. To have a graph we need an
 F<open-flash-chart.swf> and a JSON data file describing graph data.
-Complete example you can find after successful run of this module
-tests in F<t/output/> folder. F<t/output/index.html> is a page
-containing two (bar and pie) graphs, F<t/output/bad-data.json> and
-F<t/output/pie-data.json> are the data files.
+Complete examples you can find after successful run of this module
+tests in F<t/output/> folder - F<t/output/bar.html>, F<t/output/pie.html>,
+F<t/output/hbar.html> are html graphs and F<t/output/bad-data.json>,
+F<t/output/pie-data.json>, F<t/output/hbar-data.json> are the data files.
 
 =cut
 
@@ -59,7 +59,7 @@ F<t/output/pie-data.json> are the data files.
 use Moose;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03_01';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();
