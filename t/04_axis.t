@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 13;
+use Test::More tests => 14;
 use Test::Differences;
 
 use JSON::XS;
@@ -65,6 +65,12 @@ sub main {
         $y_axis->TO_JSON,
         { %y_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),},
         'y axis hash encoding'
+    );
+    
+    eq_or_diff(
+        $y_axis->labels->TO_JSON,
+        [ qw( a b c d ) ],
+        'y axis labels'
     );
     
     return 0;

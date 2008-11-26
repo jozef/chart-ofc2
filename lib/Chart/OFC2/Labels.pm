@@ -62,10 +62,15 @@ Returns HashRef that is possible to give to C<encode_json()> function.
 sub TO_JSON {
     my ($self) = @_;
     
-    return {
-        map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
-        map  { $_->name } $self->meta->compute_all_applicable_attributes
-    };
+    if (defined $self->colour) {
+        return {
+            map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
+            map  { $_->name } $self->meta->compute_all_applicable_attributes
+        };
+    }
+    else {
+        return [ @{$self->labels} ];
+    }
 }
 
 1;
