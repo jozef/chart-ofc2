@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More 'no_plan';
-#use Test::More tests => 3;
+#use Test::More 'no_plan';
+use Test::More tests => 5;
 use Test::Differences;
 
 use File::Slurp 'write_file';
@@ -25,25 +25,31 @@ exit main();
 sub main {
     my $chart = Chart::OFC2->new(
         'title'  => 'Bar chart test',
-#        'x_axis' => Chart::OFC2::XAxis->new(
-#            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
-#        ),
+        'x_axis' => Chart::OFC2::XAxis->new(
+            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+        ),
     );
     
-    my $bar = Chart::OFC2::Bar->new();
-    $bar->values([ map { 12 - $_ } 0..5 ]);
+    my $bar = Chart::OFC2::Bar->new(
+        'values' => [ map { 12 - $_ } 0..5 ],
+        'colour' => '#40FF0D',
+    );
+    $bar->values();
     $chart->add_element($bar);
 
     eq_or_diff(
         $bar->TO_JSON,
         {
+            'colour' => '#40FF0D',
             'type'   => 'bar',
             'values' => [ 12,11,10,9,8,7 ],
         },
         'bar element TO_JSON'
     );
 
-    my $bar2 = Chart::OFC2::Bar::Filled->new();
+    my $bar2 = Chart::OFC2::Bar::Filled->new(
+        'colour' => '#186000',
+    );
     $bar2->values([ 10..15 ]);
     $chart->add_element($bar2);
     
@@ -51,7 +57,8 @@ sub main {
     ok($chart_data, 'generate bar chart data');
     
     # write output to file
-    write_file(File::Spec->catfile($BASE_PATH, 'bar-data.json'), $chart_data);
+    my $output_filename = File::Spec->catfile($BASE_PATH, 'bar-data.json');
+    ok(write_file($output_filename, $chart_data), 'saving bar-chart JSON to "'.$output_filename.'"');
     
     return 0;
 }

@@ -20,13 +20,13 @@ our $VERSION = '0.01';
 
 =head1 PROPERTIES
 
-	has 'color'     => (is => 'rw', isa => 'Str', );
+	has 'colour'    => (is => 'rw', isa => 'Str', );
 	has 'text'      => (is => 'rw', isa => 'Str', );
 	has 'font_size' => (is => 'rw', isa => 'Int', );
 
 =cut
 
-has 'color'     => (is => 'rw', isa => 'Str', );
+has 'colour'    => (is => 'rw', isa => 'Str', );
 has 'text'      => (is => 'rw', isa => 'Str', );
 has 'font_size' => (is => 'rw', isa => 'Int', );
 
