@@ -26,7 +26,7 @@ sub main {
     
     my $chart = Chart::OFC2->new(
         opacity      => 60,
-        line_color   => '#505050',
+        line_colour  => '#505050',
         title        => 'Pie Chart',
         title_style  => 'font-size: 18px; color: #d01f3c;',
         label_style  => 'font-size: 12px; color: #404040;',
@@ -34,8 +34,8 @@ sub main {
     
     my $pie = Chart::OFC2::Pie->new(
         labels       => [qw( IE Firefox Opera Wii Other)],
-        slice_colors => [ '#d01f3c', '#356aa0', '#C79810' ],
-        tool_tip     => '#val#%25',
+        colours      => [ '#d01f3c', '#356aa0', '#C79810' ],
+        tool_tip     => '#val# of #total#<br>#percent# of 100%',
     );
     $pie->set_values([ map { 5 + int( rand(11) ) } ( 1 .. 5 ) ]);
     $chart->add_element($pie);
@@ -48,20 +48,3 @@ sub main {
     
     return 0;
 }
-
-
-__END__
-
-print Chart::OFC::Pie->new(
-    opacity      => 60,
-    line_color => '#505050',
-    title        => 'Pie Chart',
-    title_style => 'font-size:18px; color: #d01f3c;',
-    label_style => 'font-size: 12px; color: #404040;',
-    dataset      => Chart::OFC::Dataset->new(
-        values => [ map { 5 + int( rand(11) ) } ( 1 .. 5 ) ],
-    ),
-    labels        => [qw( IE Firefox Opera Wii Other)],
-    slice_colors => [ '#d01f3c', '#356aa0', '#C79810' ],
-    tool_tip      => '#val#%25',
-)->as_ofc_data();

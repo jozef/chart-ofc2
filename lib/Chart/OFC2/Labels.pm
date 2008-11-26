@@ -15,7 +15,7 @@ Chart::OFC2::Labels - OFC2 labels object
     'x_axis' => Chart::OFC2::XAxis->new(
         'labels' => Chart::OFC2::Labels->new(
             'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
-            'color'  => '#555555'
+            'colour' => '#555555'
         ),
     ),
 
@@ -39,12 +39,12 @@ coerce 'Chart-OFC2-Labels'
 =head1 PROPERTIES
 
     has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
-    has 'color'  => ( is => 'rw', isa => 'Str',  );
+    has 'colour' => ( is => 'rw', isa => 'Str',  );
 
 =cut
 
 has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
-has 'color'  => ( is => 'rw', isa => 'Str',  );
+has 'colour' => ( is => 'rw', isa => 'Str',  );
 
 
 =head1 METHODS

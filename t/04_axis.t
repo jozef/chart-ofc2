@@ -21,9 +21,9 @@ exit main();
 sub main {
     my %x_axis_attributes = (
         stroke      => 10,
-        color       => 'red',
+        colour      => 'red',
         tick_height => 3,
-        grid_color  => 'black',
+        grid_colour => 'black',
         offset      => 1,
         steps       => 11,
         '3d'        => 1,
@@ -31,9 +31,9 @@ sub main {
     );
     my %y_axis_attributes = (
         stroke      => 10,
-        color       => 'red',
+        colour      => 'red',
         tick_length => 3,
-        grid_color  => 'black',
+        grid_colour => 'black',
         offset      => 1,
         steps       => 11,
         '3d'        => 1,
