@@ -27,6 +27,7 @@ our $VERSION = '0.01';
     has 'extremes'     => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
     has 'use_extremes' => (is => 'rw', isa => 'Bool',  default => 1 );
     has 'on-click'     => (is => 'rw', isa => 'Str', );
+    has 'tip'          => (is => 'rw', isa => 'Str',);
 
 =cut
 
@@ -35,6 +36,7 @@ has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->ex
 has 'extremes'     => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has 'use_extremes' => (is => 'rw', isa => 'Bool',  default => 1 );
 has 'on-click'     => (is => 'rw', isa => 'Str', );
+has 'tip'          => (is => 'rw', isa => 'Str',);
 
 
 =head1 METHODS
