@@ -38,7 +38,6 @@ extends 'Chart::OFC2::BarLineBase';
 =head1 PROPERTIES
 
 	has '+type_name' => (default => 'bar');
-	has 'alpha'      => (is => 'rw', isa => 'Num',);
 
 =cut
 

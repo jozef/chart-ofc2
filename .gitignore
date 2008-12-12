@@ -12,4 +12,5 @@
 /t/output/bar.html
 /t/output/pie.html
 /t/output/hbar.html
+/t/output/line.html
 /t/output/*.json

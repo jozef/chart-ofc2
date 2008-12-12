@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 6;
+use Test::More tests => 7;
 
 use File::Slurp 'write_file', 'read_file';
 
@@ -33,6 +33,7 @@ sub main {
         { 'title' => 'Bar test',  'id' => 'bar', },
         { 'title' => 'Pie test',  'id' => 'pie', },
         { 'title' => 'HBar test', 'id' => 'hbar', },
+        { 'title' => 'Line test', 'id' => 'line', },
     );
     
     foreach my $chart (@charts) {

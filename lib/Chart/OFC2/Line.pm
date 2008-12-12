@@ -4,72 +4,127 @@ package Chart::OFC2::Line;
 
 Chart::OFC2::Line - OFC2 Line chart
 
-=head1 NOT IMPLEMENTED JET
+=head1 SYNOPSIS
 
-TBD
+    use Chart::OFC2;
+    use Chart::OFC2::Axis;
+    use Chart::OFC2::Line;
+    
+    my $chart = Chart::OFC2->new(
+        'title'  => 'Line chart test',
+        'x_axis' => Chart::OFC2::XAxis->new(
+            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May' ],
+        ),
+    );
+    
+    my $line = Chart::OFC2::Line->new();
+    $line->values([ 1..5 ]);
+    $chart->add_element($line);
 
-=begin skip
+    print $chart->render_chart_data();
 
-our @ISA = qw(bar_and_line_base);
+=head1 DESCRIPTION
 
-sub new() {
-    my ($proto) = @_;
-    my $class = ref($proto) || $proto;
-    my $self = {};
-    bless $self, $class;
-    $self                               = $self->SUPER::new();
-    $self->{'element_props'}->{'type'}  = __PACKAGE__;
-    $self->{'element_props'}->{'width'} = 2;
-    return $self;
-}
-
-package line_dot;
-our @ISA = qw(line);
-
-sub new() {
-    my ($proto) = @_;
-    my $class = ref($proto) || $proto;
-    my $self = {};
-    bless $self, $class;
-    $self                                  = $self->SUPER::new();
-    $self->{'element_props'}->{'type'}     = __PACKAGE__;
-    $self->{'element_props'}->{'dot-size'} = 6;
-    return $self;
-}
-
-package line_hollow;
-our @ISA = qw(line);
-
-sub new() {
-    my ($proto) = @_;
-    my $class = ref($proto) || $proto;
-    my $self = {};
-    bless $self, $class;
-    $self                                  = $self->SUPER::new();
-    $self->{'element_props'}->{'type'}     = __PACKAGE__;
-    $self->{'element_props'}->{'dot-size'} = 8;
-    return $self;
-}
-
-package area_hollow;
-our @ISA = qw(bar_and_line_base);
-
-sub new() {
-    my ($proto) = @_;
-    my $class = ref($proto) || $proto;
-    my $self = {};
-    bless $self, $class;
-    $self                                    = $self->SUPER::new();
-    $self->{'element_props'}->{'type'}       = __PACKAGE__;
-    $self->{'element_props'}->{'width'}      = 2;
-    $self->{'element_props'}->{'fill'}       = '';
-    $self->{'element_props'}->{'text'}       = '';
-    $self->{'element_props'}->{'dot-size'}   = 5;
-    $self->{'element_props'}->{'halo-size'}  = 2;
-    $self->{'element_props'}->{'fill-alpha'} = 0.6;
-    return $self;
-}
+	extends 'Chart::OFC2::BarLineBase';
 
 =cut
 
+use Moose;
+
+our $VERSION = '0.01';
+
+extends 'Chart::OFC2::BarLineBase';
+
+=head1 PROPERTIES
+
+    has '+type_name' => (default => 'line');
+    has 'width'      => (is => 'rw', isa => 'Int',);
+
+=cut
+
+has '+type_name' => (default => 'line');
+has 'width'      => (is => 'rw', isa => 'Int',);
+
+
 1;
+
+
+=head1 Chart::OFC2::Line::Dot
+
+Dotted line chart
+
+	extends 'Chart::OFC2::Line';
+
+=cut
+
+package Chart::OFC2::Line::Dot;
+use Moose;
+our $VERSION = '0.01';
+extends 'Chart::OFC2::Line';
+
+=head1 PROPERTIES
+
+	has '+type_name' => (default => 'line_dot');
+    has 'dot-size'   => (is => 'rw', isa => 'Int',);
+
+=cut
+
+has '+type_name' => (default => 'line_dot');
+has 'dot-size'   => (is => 'rw', isa => 'Int',);
+
+
+1;
+
+
+=head1 Chart::OFC2::Line::Hollow
+
+Hollow line chart
+
+	extends 'Chart::OFC2::Line::Dot';
+
+=cut
+
+package Chart::OFC2::Line::Hollow;
+use Moose;
+our $VERSION = '0.01';
+extends 'Chart::OFC2::Line::Dot';
+
+=head1 PROPERTIES
+
+	has '+type_name' => (default => 'line_hollow');
+
+=cut
+
+has '+type_name' => (default => 'line_hollow');
+
+1;
+
+
+=head1 Chart::OFC2::Area::Hollow
+
+Hollow line chart
+
+	extends 'Chart::OFC2::Line::Dot';
+
+=cut
+
+package Chart::OFC2::Area::Hollow;
+use Moose;
+our $VERSION = '0.01';
+extends 'Chart::OFC2::Line::Dot';
+
+=head1 PROPERTIES
+
+	has '+type_name' => (default => 'area_hollow');
+
+=cut
+
+has '+type_name' => (default => 'area_hollow');
+has 'width'      => (is => 'rw', isa => 'Int',);
+has 'halo-size'  => (is => 'rw', isa => 'Int',);
+has 'fill-alpha' => (is => 'rw', isa => 'Num',);
+has 'fill'       => (is => 'rw', isa => 'Str',);
+has 'text'       => (is => 'rw', isa => 'Str',);
+
+1;
+
