@@ -30,6 +30,7 @@ Chart::OFC2::Line - OFC2 Line chart
 =cut
 
 use Moose;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 
@@ -59,6 +60,7 @@ Dotted line chart
 
 package Chart::OFC2::Line::Dot;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Line';
 
@@ -86,6 +88,7 @@ Hollow line chart
 
 package Chart::OFC2::Line::Hollow;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Line::Dot';
 
@@ -110,6 +113,7 @@ Hollow line chart
 
 package Chart::OFC2::Area::Hollow;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Line::Dot';
 

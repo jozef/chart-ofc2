@@ -36,6 +36,7 @@ in the middle of the bar.
 =cut
 
 use Moose;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 

@@ -34,6 +34,7 @@ Chart::OFC2::Bar - OFC2 bar chart
 =cut
 
 use Moose;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 
@@ -59,6 +60,7 @@ has '+type_name' => (default => 'bar');
 
 package Chart::OFC2::Bar::3D;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Bar';
 
@@ -83,6 +85,7 @@ Fade bar chart
 
 package Chart::OFC2::Bar::Fade;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Bar';
 
@@ -107,6 +110,7 @@ Glass bar chart
 
 package Chart::OFC2::Bar::Glass;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Bar';
 
@@ -131,6 +135,7 @@ Sketch bar chart
 
 package Chart::OFC2::Bar::Sketch;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Bar';
 
@@ -155,6 +160,7 @@ Filled bar chart
 
 package Chart::OFC2::Bar::Filled;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Bar';
 
@@ -182,6 +188,7 @@ Stack bar chart
 
 package Chart::OFC2::Bar::Stack;
 use Moose;
+use MooseX::StrictConstructor;
 our $VERSION = '0.01';
 extends 'Chart::OFC2::Bar';
 

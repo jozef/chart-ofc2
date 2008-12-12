@@ -12,6 +12,7 @@ Chart::OFC2::PieValues - OFC2 values for pie charts object
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
 use Carp::Clan 'croak';
 use List::MoreUtils 'any';

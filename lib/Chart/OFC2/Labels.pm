@@ -25,6 +25,7 @@ Chart::OFC2::Labels - OFC2 labels object
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 

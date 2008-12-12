@@ -19,6 +19,7 @@ X or Y axis for OFC2.
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 
@@ -106,6 +107,7 @@ X axis object.
 
 package Chart::OFC2::XAxis;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'Chart::OFC2::Axis';
 
@@ -132,6 +134,7 @@ y axis object.
 
 package Chart::OFC2::YAxis;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'Chart::OFC2::Axis';
 
@@ -159,6 +162,7 @@ y axis on the right side object.
 package Chart::OFC2::YAxisRight;
 
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'Chart::OFC2::YAxis';
 

@@ -23,6 +23,7 @@ Chart::OFC2::Extremes - OFC2 axis or chart extremes
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 use Carp::Clan 'croak';
 
 our $VERSION = '0.01';

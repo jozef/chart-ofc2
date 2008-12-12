@@ -11,6 +11,8 @@ my $builder = Module::Build->new(
         'Moose'           => 0,
         'Moose::Util::TypeConstraints'
                           => 0,
+        'MooseX::StrictConstructor'
+                          => 0,
         'Carp::Clan'      => 0,
         'JSON::XS'        => 0,
         'List::MoreUtils' => 0,

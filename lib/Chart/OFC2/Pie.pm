@@ -39,6 +39,7 @@ Chart::OFC2::Pie - OFC2 Pie chart
 =cut
 
 use Moose;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 

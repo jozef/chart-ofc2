@@ -58,8 +58,9 @@ F<t/output/pie-data.json>, F<t/output/hbar-data.json> are the data files.
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
-our $VERSION = '0.03';
+our $VERSION = '0.03_02';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();

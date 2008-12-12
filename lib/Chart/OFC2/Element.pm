@@ -15,6 +15,7 @@ Chart::OFC2::Element - OFC2 base module for chart elements
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
 use Chart::OFC2::Extremes;
 

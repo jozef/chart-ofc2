@@ -14,6 +14,7 @@ Chart::OFC2::BarLineBase - OFC2 Bar and Line chart base module
 =cut
 
 use Moose;
+use MooseX::StrictConstructor;
 extends 'Chart::OFC2::Element';
 
 our $VERSION = '0.01';

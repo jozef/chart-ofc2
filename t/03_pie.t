@@ -23,11 +23,7 @@ exit main();
 
 sub main {
     my $chart = Chart::OFC2->new(
-        opacity      => 60,
-        line_colour  => '#505050',
         title        => 'Pie Chart',
-        title_style  => 'font-size: 18px; color: #d01f3c;',
-        label_style  => 'font-size: 12px; color: #404040;',
     );
     
     my $pie = Chart::OFC2::Pie->new(

@@ -26,6 +26,7 @@ Chart::OFC2::Title - OFC2 title object
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
 our $VERSION = '0.01';
 

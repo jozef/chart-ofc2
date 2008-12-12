@@ -12,6 +12,7 @@ Chart::OFC2::HBarValues - OFC2 values for horizontal bar charts object
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use MooseX::StrictConstructor;
 
 use Carp::Clan 'croak';
 use List::MoreUtils 'any';
