@@ -4,33 +4,36 @@ package Chart::OFC2::Scatter;
 
 Chart::OFC2::Scatter - OFC2 Scatter chart
 
-=head1 NOT IMPLEMENTED JET
+=head1 DESCRIPTION
 
-TBD
+	extends 'Chart::OFC2::Element';
 
-=begin skip
+=cut
 
-our @ISA = qw(element);
+use Moose;
 
-sub new() {
-    my ($proto) = @_;
-    my $class = ref($proto) || $proto;
-    my $self = {};
-    bless $self, $class;
-    $self                              = $self->SUPER::new();
-    $self->{'use_extremes'}            = 1;                   # scatter needs x-y min-maxes to print
-    $self->{'element_props'}->{'type'} = __PACKAGE__;
-    $self->{'element_props'}->{'values'} = [
-        { "x" => -5,  "y" => -5 },
-        { "x" => 0,   "y" => 0 },
-        { "x" => 5,   "y" => 5, "dot-size" => 20 },
-        { "x" => 5,   "y" => -5, "dot-size" => 5 },
-        { "x" => -5,  "y" => 5, "dot-size" => 5 },
-        { "x" => 0.5, "y" => 1, "dot-size" => 15 }
-    ];
+our $VERSION = '0.01';
 
-    return $self;
-}
+extends 'Chart::OFC2::Element';
+
+=head1 PROPERTIES
+
+	has '+type_name' => (default => 'scatter');
+
+=cut
+
+has '+type_name'    => (default => 'scatter');
+has '+use_extremes' => (default => 1);    # scatter needs x-y min-maxes to print
+has '+extremes'     => (default => sub { $_[0]->set_extremes }, lazy => 1 );    # scatter needs x-y min-maxes to print
+
+
+=head1 METHODS
+
+=head2 set_extremes()
+
+Set the chart element extremes.
+
+=cut
 
 sub set_extremes {
     my ($self) = @_;
@@ -41,7 +44,7 @@ sub set_extremes {
         'y_axis_min' => undef,
         'other'      => undef
     };
-    for (@{ $self->{'element_props'}->{'values'} }) {
+    for (@{ $self->values }) {
         $extremes->{'y_axis_max'} = $_->{'y'} if !defined($extremes->{'y_axis_max'});
         if ($_->{'y'} > $extremes->{'y_axis_max'}) {
             $extremes->{'y_axis_max'} = $_->{'y'};
@@ -61,9 +64,7 @@ sub set_extremes {
         }
 
     }
-    $self->{'extremes'} = $extremes;
+    $self->extremes(Chart::OFC2::Extremes->new($extremes));
 }
-
-=cut
 
 1;

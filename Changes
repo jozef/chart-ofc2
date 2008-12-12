@@ -5,6 +5,7 @@ Revision history for Chart::OFC2
         - hbar chart added
         - GNU GPL licensing
         - line chart added
+        - scatter chart added
 
 0.02    24.11.2008
         Just MANIFEST fix

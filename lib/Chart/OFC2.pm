@@ -41,7 +41,7 @@ Chart 2 is offering. But it should help you to starting creating OFC2
 graphs quite fast. The JSON format is quite intuitive and can be created
 from any hash. This module is more like guideline.
 
-This is early version so the API B<WILL> change, be careful when upgrading
+This is early version B<PROTOTYPE> so the API B<WILL> change, be careful when upgrading
 versions.
 
 =head1 DESCRIPTION
@@ -141,6 +141,8 @@ sub add_element {
     if ($element->use_extremes) {
         $self->y_axis->max('a');
         $self->y_axis->min('a');
+        $self->x_axis->max('a');
+        $self->x_axis->min('a');
     }
     
     push(@{ $self->elements }, $element);

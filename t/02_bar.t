@@ -28,6 +28,10 @@ sub main {
         'x_axis' => Chart::OFC2::XAxis->new(
             'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
         ),
+        'y_axis' => {
+            'max' => 'a',
+            'min' => 'a',
+        },
     );
     
     my $bar = Chart::OFC2::Bar->new(

@@ -31,6 +31,10 @@ subtype 'Chart-OFC2-Extremes'
     => as 'Object'
     => where { $_[0]->isa('Chart::OFC2::Extremes') };
 
+coerce 'Chart-OFC2-Extremes'
+    => from 'HashRef'
+    => via { Chart::OFC2::Extremes->new($_) };
+
 =head1 PROPERTIES
 
     has 'x_axis_max' => (is => 'rw', isa => 'Num|Undef', );
@@ -91,8 +95,10 @@ sub reset {
             if ((not defined $min) or ($value < $min));
     }
     
-    $self->$axis_min($min);
-    $self->$axis_max($max);
+    $self->$axis_min($min)
+        if defined $min;
+    $self->$axis_max($max)
+        if defined $max;
 }
 
 

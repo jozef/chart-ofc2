@@ -15,6 +15,10 @@ Chart::OFC2::Bar - OFC2 bar chart
         'x_axis' => Chart::OFC2::XAxis->new(
             'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May' ],
         ),
+        'y_axis' => {
+            'max' => 'a',
+            'min' => 'a',
+        },
     );
     
     my $bar = Chart::OFC2::Bar->new();
