@@ -336,8 +336,7 @@ L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>
 
 =head1 COPYRIGHT AND LICENSE
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+GNU GPL
 
 =head1 AUTHOR
 
