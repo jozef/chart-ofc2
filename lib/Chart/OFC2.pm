@@ -59,7 +59,7 @@ F<t/output/pie-data.json>, F<t/output/hbar-data.json> are the data files.
 use Moose;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.03_01';
+our $VERSION = '0.03';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();
@@ -334,7 +334,7 @@ file in html every time you generate new data. Like C<"data.json?".time()>.
 
 =head1 SEE ALSO
 
-L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>
+L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>, L<http://svn.cle.sk/repos/pub/cpan/Chart-OFC2/trunk/>
 
 =head1 COPYRIGHT AND LICENSE
 
