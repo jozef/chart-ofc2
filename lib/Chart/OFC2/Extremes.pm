@@ -10,7 +10,7 @@ Chart::OFC2::Extremes - OFC2 axis or chart extremes
     
     has 'extremes' => (
         is      => 'rw',
-        isa     => 'Chart-OFC2-Extremes',
+        isa     => 'Chart.OFC2.Extremes',
         default => sub { Chart::OFC2::Extremes->new() },
         lazy    => 1,
     );
@@ -28,11 +28,11 @@ use Carp::Clan 'croak';
 
 our $VERSION = '0.01';
 
-subtype 'Chart-OFC2-Extremes'
+subtype 'Chart.OFC2.Extremes'
     => as 'Object'
     => where { $_[0]->isa('Chart::OFC2::Extremes') };
 
-coerce 'Chart-OFC2-Extremes'
+coerce 'Chart.OFC2.Extremes'
     => from 'HashRef'
     => via { Chart::OFC2::Extremes->new($_) };
 

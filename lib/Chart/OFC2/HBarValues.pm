@@ -19,11 +19,11 @@ use List::MoreUtils 'any';
 
 our $VERSION = '0.01';
 
-subtype 'Chart-OFC2-HBarValues'
+subtype 'Chart.OFC2.HBarValues'
     => as 'Object'
     => where { $_[0]->isa('Chart::OFC2::HBarValues') };
 
-coerce 'Chart-OFC2-HBarValues'
+coerce 'Chart.OFC2.HBarValues'
     => from 'ArrayRef'
     => via { Chart::OFC2::HBarValues->_new_from_arrayref( $_) };
 

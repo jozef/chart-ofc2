@@ -25,7 +25,7 @@ our $VERSION = '0.01';
 
     has 'type_name'    => (is => 'rw', isa => enum([qw(bar bar_filled pie hbar line line_dot line_hollow area_hollow scatter)]), required => 1);
     has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]); } );
-    has 'extremes'     => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
+    has 'extremes'     => (is => 'rw', isa => 'Chart.OFC2.Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
     has 'use_extremes' => (is => 'rw', isa => 'Bool',  default => 0 );
     has 'on-click'     => (is => 'rw', isa => 'Str', );
     has 'tip'          => (is => 'rw', isa => 'Str',);
@@ -36,7 +36,7 @@ our $VERSION = '0.01';
 
 has 'type_name'    => (is => 'rw', isa => enum([qw(bar bar_filled pie hbar line line_dot line_hollow area_hollow scatter)]), required => 1);
 has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]); } );
-has 'extremes'     => (is => 'rw', isa => 'Chart-OFC2-Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
+has 'extremes'     => (is => 'rw', isa => 'Chart.OFC2.Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
 has 'use_extremes' => (is => 'rw', isa => 'Bool',);
 has 'on-click'     => (is => 'rw', isa => 'Str', );
 has 'tip'          => (is => 'rw', isa => 'Str',);
