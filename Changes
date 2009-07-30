@@ -1,5 +1,9 @@
 Revision history for Chart::OFC2
 
+0.04    30.07.2009
+        - replaced deprecated compute_all_applicable_attributes by get_all_attributes
+          (thanks to John Goulah for pointing this out)
+
 0.03    26.11.2008
         - pie chart added
         - hbar chart added

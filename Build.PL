@@ -9,6 +9,7 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Chart/OFC2.pm',
     requires => {
         'Moose'           => 0,
+        'Class::MOP'      => 0.65,      # - New method - get_all_attributes (nothingmuch)
         'Moose::Util::TypeConstraints'
                           => 0,
         'MooseX::StrictConstructor'
@@ -29,6 +30,14 @@ my $builder = Module::Build->new(
     create_makefile_pl => 'traditional',
     create_readme       => 1,
     sign                => 1,
+    meta_merge => {
+        resources => {
+            repository => 'http://github.com/jozef/chart-ofc2/',
+            bugtracker =>
+            'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Chart-OFC2',
+        },
+        keywords => [ qw/ chart flash / ],
+    },
 );
 
 $builder->create_build_script();

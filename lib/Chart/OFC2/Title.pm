@@ -28,7 +28,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.01';
+our $VERSION = '0.04';
 
 subtype 'Chart.OFC2.Title'
     => as 'Object'
@@ -66,7 +66,7 @@ sub TO_JSON {
     return {
         map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
         map  { $_->name }
-        $self->meta->compute_all_applicable_attributes
+        $self->meta->get_all_attributes
     };
 }
 

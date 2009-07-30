@@ -19,7 +19,7 @@ use MooseX::StrictConstructor;
 
 use Chart::OFC2::Extremes;
 
-our $VERSION = '0.01';
+our $VERSION = '0.04';
 
 =head1 PROPERTIES
 
@@ -65,7 +65,7 @@ sub TO_JSON {
         grep { $_ ne 'type_name' }
         grep { $_ ne 'use_extremes' }
         map  { $_->name }
-        $self->meta->compute_all_applicable_attributes
+        $self->meta->get_all_attributes
     );
     $hash{'type'} = $self->type_name;
     

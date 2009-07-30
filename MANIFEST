@@ -27,6 +27,8 @@ t/04_axis.t
 t/05_extremes.t
 t/06_element.t
 t/07_hbar.t
+t/08_line.t
+t/09_scatter.t
 t/distribution.t
 t/output/_footer.html
 t/output/_header.html
