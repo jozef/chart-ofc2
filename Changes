@@ -1,5 +1,9 @@
 Revision history for Chart::OFC2
 
+0.05    10.08.2009
+        - added bar_3d type_name (thanks to JGOULAH <jgoulah@cpan.org>)
+        - make $element->values with numbers really numbers in JSON (thanks to JGOULAH <jgoulah@cpan.org>)
+
 0.04    30.07.2009
         - replaced deprecated compute_all_applicable_attributes by get_all_attributes
           (thanks to John Goulah for pointing this out)
