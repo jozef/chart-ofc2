@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use Module::Build;
 
+use 5.010;
+
 my $builder = Module::Build->new(
     module_name         => 'Chart::OFC2',
     license             => 'perl',
@@ -18,6 +20,7 @@ my $builder = Module::Build->new(
         'JSON::XS'        => 0,
         'List::MoreUtils' => 0,
         'List::Util'      => 0,
+        'Scalar::Util'    => 0,
     },
     build_requires => {
         'Test::More'        => 0,

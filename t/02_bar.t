@@ -35,7 +35,7 @@ sub main {
     );
     
     my $bar = Chart::OFC2::Bar->new(
-        'values' => [ map { 12 - $_ } 0..5 ],
+        'values' => [ map { (12 - $_).q() } 0..5 ],
         'colour' => '#40FF0D',
     );
     $bar->values();

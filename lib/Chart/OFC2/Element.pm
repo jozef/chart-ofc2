@@ -18,8 +18,11 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
 use Chart::OFC2::Extremes;
+use Scalar::Util 'looks_like_number', 'reftype';
 
 our $VERSION = '0.04';
+
+use 5.010;
 
 =head1 PROPERTIES
 
@@ -68,8 +71,40 @@ sub TO_JSON {
         $self->meta->get_all_attributes
     );
     $hash{'type'} = $self->type_name;
-    
+
+    _make_numbers_numbers(\$hash{'values'});
+
     return \%hash;
+}
+
+# finds "looks like numbers" in a structure and makes them really numbers
+sub _make_numbers_numbers {
+    my $var = shift;
+    
+    given (reftype($var)) {
+        when ('REF') {
+            _make_numbers_numbers(${$var})
+        }
+        when ('HASH') {
+            foreach my $key (keys %{$var}) {
+                _make_numbers_numbers(\${$var}{$key})
+            }
+        }
+        when ('ARRAY') {
+            my $i = 0;
+            while ($i < @{$var}) {
+                _make_numbers_numbers(\${$var}[$i]);
+                $i++;
+            }
+        }
+        when ('SCALAR') {
+            $$var = $$var+0
+                if looks_like_number($$var);
+        }
+        default {
+            die "unknown reference type - ".$var;
+        }
+    }
 }
 
 1;
