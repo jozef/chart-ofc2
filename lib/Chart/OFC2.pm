@@ -77,12 +77,12 @@ use List::MoreUtils 'any';
 
     has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
     has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
-    has 'title'          => (is => 'rw', isa => 'Chart.OFC2.Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
-    has 'x_axis'         => (is => 'rw', isa => 'Chart.OFC2.XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
-    has 'y_axis'         => (is => 'rw', isa => 'Chart.OFC2.YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
+    has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
+    has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
+    has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
-    has 'extremes'       => (is => 'rw', isa => 'Chart.OFC2.Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
-    has 'tooltip'        => (is => 'rw', isa => 'Chart.OFC2.ToolTip',);
+    has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
+    has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip',);
 
 =cut
 
@@ -92,13 +92,13 @@ subtype 'Chart.OFC2.NaturalInt'
 
 has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
-has 'title'          => (is => 'rw', isa => 'Chart.OFC2.Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
-has 'x_axis'         => (is => 'rw', isa => 'Chart.OFC2.XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1, coerce  => 1);
-has 'y_axis'         => (is => 'rw', isa => 'Chart.OFC2.YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, coerce  => 1);
+has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
+has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1, coerce  => 1);
+has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, coerce  => 1);
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
-has 'extremes'       => (is => 'rw', isa => 'Chart.OFC2.Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
+has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
-has 'tooltip'        => (is => 'rw', isa => 'Chart.OFC2.ToolTip', coerce  => 1);
+has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip', coerce  => 1);
 
 
 =head1 METHODS

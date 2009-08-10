@@ -29,15 +29,8 @@ use Chart::OFC2::Labels;
 
 =head1 PROPERTIES
 
-    subtype 'Chart.OFC2.YAxis'
-        => as 'Object'
-        => where { $_[0]->isa('Chart::OFC2::YAxis') };
-    subtype 'Chart.OFC2.XAxis' 
-        => as 'Object'
-        => where { $_[0]->isa('Chart::OFC2::XAxis') };
-
     has 'name'        => ( is => 'rw', isa => enum(['x_axis', 'y_axis', 'y_axis_right']), required => 1 );
-    has 'labels'      => ( is => 'rw', isa => 'Chart.OFC2.Labels', coerce  => 1);
+    has 'labels'      => ( is => 'rw', isa => 'Chart::OFC2::Labels', coerce  => 1);
     has 'stroke'      => ( is => 'rw', isa => 'Int', );
     has 'colour'      => ( is => 'rw', isa => 'Str',  );
     has 'offset'      => ( is => 'rw', isa => 'Bool', );
@@ -50,22 +43,15 @@ use Chart::OFC2::Labels;
 
 =cut
 
-subtype 'Chart.OFC2.YAxis'
-    => as 'Object'
-    => where { $_[0]->isa('Chart::OFC2::YAxis') };
-subtype 'Chart.OFC2.XAxis' 
-    => as 'Object'
-    => where { $_[0]->isa('Chart::OFC2::XAxis') };
-
-coerce 'Chart.OFC2.XAxis'
+coerce 'Chart::OFC2::XAxis'
     => from 'HashRef'
     => via { Chart::OFC2::XAxis->new($_) };
-coerce 'Chart.OFC2.YAxis'
+coerce 'Chart::OFC2::YAxis'
     => from 'HashRef'
     => via { Chart::OFC2::YAxis->new($_) };
 
 has 'name'        => ( is => 'rw', isa => enum(['x_axis', 'y_axis', 'y_axis_right']), required => 1 );
-has 'labels'      => ( is => 'rw', isa => 'Chart.OFC2.Labels', coerce  => 1);
+has 'labels'      => ( is => 'rw', isa => 'Chart::OFC2::Labels', coerce  => 1);
 has 'stroke'      => ( is => 'rw', isa => 'Int', );
 has 'colour'      => ( is => 'rw', isa => 'Str',  );
 has 'offset'      => ( is => 'rw', isa => 'Bool', );

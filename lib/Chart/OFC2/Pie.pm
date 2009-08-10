@@ -57,7 +57,7 @@ has 'border'        => (is => 'rw', isa => 'Str',);
 has 'animate'       => (is => 'rw', isa => 'Bool',);
 has 'start-angle'   => (is => 'rw', isa => 'Int',);
 has 'gradient-fill' => (is => 'rw', isa => 'Bool',);
-has 'values'        => (is => 'rw', isa => 'Chart.OFC2.PieValues', 'coerce' => 1,);
+has 'values'        => (is => 'rw', isa => 'Chart::OFC2::PieValues', 'coerce' => 1,);
 
 override 'TO_JSON' => sub {
     my $self = shift;

@@ -29,11 +29,7 @@ use MooseX::StrictConstructor;
 
 our $VERSION = '0.04';
 
-subtype 'Chart.OFC2.Labels'
-    => as 'Object'
-    => where { $_[0]->isa('Chart::OFC2::Labels') };
-
-coerce 'Chart.OFC2.Labels'
+coerce 'Chart::OFC2::Labels'
     => from 'ArrayRef'
     => via { Chart::OFC2::Labels->new('labels' => $_) };
 
