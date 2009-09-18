@@ -27,7 +27,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 coerce 'Chart::OFC2::Labels'
     => from 'ArrayRef'

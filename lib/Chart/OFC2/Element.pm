@@ -20,7 +20,7 @@ use MooseX::StrictConstructor;
 use Chart::OFC2::Extremes;
 use Scalar::Util 'looks_like_number', 'reftype';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use 5.010;
 
