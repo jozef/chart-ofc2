@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 5;
+use Test::More tests => 6;
 use Test::Differences;
 
 use File::Slurp 'write_file';
@@ -32,6 +32,7 @@ sub main {
             'max' => 'a',
             'min' => 'a',
         },
+        'bg_colour' => 'f0f8ff',
     );
     
     my $bar = Chart::OFC2::Bar->new(
@@ -63,6 +64,23 @@ sub main {
     # write output to file
     my $output_filename = File::Spec->catfile($BASE_PATH, 'bar-data.json');
     ok(write_file($output_filename, $chart_data), 'saving bar-chart JSON to "'.$output_filename.'"');
+
+	my $bar3 = Chart::OFC2::Bar::3D->new(
+        'values' => [ map { (12 - $_).q() } 0..5 ],
+        'colour' => '#40FF0D',
+	);
+    $bar3->values();
+    $chart->add_element($bar3);
+
+    eq_or_diff(
+        $bar3->TO_JSON,
+        {
+            'colour' => '#40FF0D',
+            'type'   => 'bar_3d',
+            'values' => [ 12,11,10,9,8,7 ],
+        },
+        'bar_3d element TO_JSON'
+    );
     
     return 0;
 }
