@@ -15,7 +15,8 @@ Chart::OFC2::Labels - OFC2 labels object
     'x_axis' => Chart::OFC2::XAxis->new(
         'labels' => Chart::OFC2::Labels->new(
             'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
-            'colour' => '#555555'
+            'colour' => '#555555',
+            'rotate' => 45,
         ),
     ),
 
@@ -37,11 +38,13 @@ coerce 'Chart::OFC2::Labels'
 
     has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
     has 'colour' => ( is => 'rw', isa => 'Str',  );
+    has 'rotate' => ( is => 'rw', isa => 'Num', );
 
 =cut
 
 has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
 has 'colour' => ( is => 'rw', isa => 'Str',  );
+has 'rotate' => ( is => 'rw', isa => 'Num', );
 
 
 =head1 METHODS
@@ -59,15 +62,10 @@ Returns HashRef that is possible to give to C<encode_json()> function.
 sub TO_JSON {
     my ($self) = @_;
     
-    if (defined $self->colour) {
-        return {
-            map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
-            map  { $_->name } $self->meta->get_all_attributes
-        };
-    }
-    else {
-        return [ @{$self->labels} ];
-    }
+    return {
+        map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
+        map  { $_->name } $self->meta->get_all_attributes
+    };
 }
 
 1;

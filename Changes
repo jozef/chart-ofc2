@@ -1,5 +1,8 @@
 Revision history for Chart::OFC2
 
+0.06    25.09.2009
+        - #50019 rotate for labels (thanks to noesnaterse <noe@noesnaterse.nl>)
+
 0.05    10.08.2009
         - added bar_3d type_name (thanks to JGOULAH <jgoulah@cpan.org>)
         - make $element->values with numbers really numbers in JSON (thanks to JGOULAH <jgoulah@cpan.org>)

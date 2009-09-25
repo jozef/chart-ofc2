@@ -34,6 +34,8 @@ sub main {
         },
         'bg_colour' => 'f0f8ff',
     );
+    $chart->x_axis->labels->rotate(45);
+    $chart->x_axis->labels->colour('#555555');
     
     my $bar = Chart::OFC2::Bar->new(
         'values' => [ map { (12 - $_).q() } 0..5 ],
