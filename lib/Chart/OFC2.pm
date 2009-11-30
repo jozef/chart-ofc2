@@ -1,5 +1,7 @@
 package Chart::OFC2;
 
+=encoding utf8
+
 =head1 NAME
 
 Chart::OFC2 - Generate html and data files for use with Open Flash Chart version 2
@@ -339,6 +341,25 @@ file in html every time you generate new data. Like C<"data.json?".time()>.
 
 L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>, L<http://svn.cle.sk/repos/pub/cpan/Chart-OFC2/trunk/>
 
+=head1 AUTHOR
+
+Jozef Kutej C<< <jkutej@cpan.org> >>
+
+I've used some of the code from the F<perl-ofc-library/open_flash_chart.pm>
+that is shipped together with all the rest OFC2 files.
+
+=head1 CONTRIBUTORS
+ 
+The following people have contributed to the Chart::OFC2 by commiting their
+code, sending patches, reporting bugs, asking questions, suggesting useful
+advices, nitpicking, chatting on IRC or commenting on my blog (in no particular
+order):
+
+    Rodney Webster
+    John Goulah C<< <jgoulah@cpan.org> >>
+    Noë Snaterse
+    Adam Foxson C<< <atom@cpan.org> >>
+
 =head1 SUPPORT
 
 =over 4
@@ -369,20 +390,8 @@ L<http://search.cpan.org/dist/Chart-OFC2>
 
 =back
 
-=head1 ACKNOWLEDGEMENTS
-
-Thanks to John Goulah C<< <jgoulah@cpan.org> >> for his patches
-and suggestions (#49416, #48821, #48376, #48380).
-
 =head1 COPYRIGHT AND LICENSE
 
 GNU GPL
-
-=head1 AUTHOR
-
-Jozef Kutej C<< <jkutej@cpan.org> >>
-
-I've used some of the code from the F<perl-ofc-library/open_flash_chart.pm>
-that is shipped together with all the rest OFC2 files.
 
 =cut
