@@ -62,7 +62,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();
@@ -358,7 +358,7 @@ order):
     Rodney Webster
     John Goulah C<< <jgoulah@cpan.org> >>
     Noë Snaterse
-    Adam Foxson C<< <atom@cpan.org> >>
+    Adam J. Foxson C<< <atom@cpan.org> >>
 
 =head1 SUPPORT
 

@@ -28,7 +28,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 coerce 'Chart::OFC2::Title'
     => from 'Str'

@@ -26,7 +26,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use Carp::Clan 'croak';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 coerce 'Chart::OFC2::Extremes'
     => from 'HashRef'

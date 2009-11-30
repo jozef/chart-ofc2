@@ -21,7 +21,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Chart::OFC2;
 use Chart::OFC2::Labels;
