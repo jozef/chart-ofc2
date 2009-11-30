@@ -22,8 +22,6 @@ use Scalar::Util 'looks_like_number', 'reftype';
 
 our $VERSION = '0.05';
 
-use 5.010;
-
 =head1 PROPERTIES
 
     has 'type_name'    => (is => 'rw', isa => enum([qw(
@@ -94,30 +92,29 @@ sub TO_JSON {
 # finds "looks like numbers" in a structure and makes them really numbers
 sub _make_numbers_numbers {
     my $var = shift;
+    my $reftype = reftype($var);
     
-    given (reftype($var)) {
-        when ('REF') {
-            _make_numbers_numbers(${$var})
+    if ($reftype eq 'REF') {
+        _make_numbers_numbers(${$var})
+    }
+    elsif ($reftype eq 'HASH') {
+        foreach my $key (keys %{$var}) {
+            _make_numbers_numbers(\${$var}{$key})
         }
-        when ('HASH') {
-            foreach my $key (keys %{$var}) {
-                _make_numbers_numbers(\${$var}{$key})
-            }
+    }
+    elsif ($reftype eq 'ARRAY') {
+        my $i = 0;
+        while ($i < @{$var}) {
+            _make_numbers_numbers(\${$var}[$i]);
+            $i++;
         }
-        when ('ARRAY') {
-            my $i = 0;
-            while ($i < @{$var}) {
-                _make_numbers_numbers(\${$var}[$i]);
-                $i++;
-            }
-        }
-        when ('SCALAR') {
-            $$var = $$var+0
-                if looks_like_number($$var);
-        }
-        default {
-            die "unknown reference type - ".$var;
-        }
+    }
+    elsif ($reftype eq 'SCALAR') {
+        $$var = $$var+0
+            if looks_like_number($$var);
+    }
+    else {
+        die "unknown reference type - ".$var;
     }
 }
 
