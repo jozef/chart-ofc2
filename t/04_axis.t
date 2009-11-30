@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 14;
+use Test::More tests => 15;
 use Test::Differences;
 
 use JSON::XS;
@@ -71,6 +71,13 @@ sub main {
         $y_axis->labels->TO_JSON,
         [ qw( a b c d ) ],
         'y axis labels'
+    );
+    
+    $y_axis->labels->rotate(45);
+    eq_or_diff(
+        $y_axis->labels->TO_JSON,
+        { labels => [ qw( a b c d ) ], rotate => 45, },
+        'y axis labels (rotated)'
     );
     
     return 0;
