@@ -39,6 +39,7 @@ our $VERSION = '0.07';
     has 'tip'          => (is => 'rw', isa => 'Str',);
     has 'alpha'        => (is => 'rw', isa => 'Num',);
     has 'colour'       => (is => 'rw', isa => 'Str',);
+    has 'text'         => (is => 'rw', isa => 'Str',);
 
 =cut
 
@@ -57,6 +58,7 @@ has 'on-click'     => (is => 'rw', isa => 'Str', );
 has 'tip'          => (is => 'rw', isa => 'Str',);
 has 'alpha'        => (is => 'rw', isa => 'Num',);
 has 'colour'       => (is => 'rw', isa => 'Str',);
+has 'text'         => (is => 'rw', isa => 'Str',);
 
 
 =head1 METHODS

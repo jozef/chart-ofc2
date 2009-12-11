@@ -40,6 +40,7 @@ sub main {
     my $bar = Chart::OFC2::Bar->new(
         'values' => [ map { (12 - $_).q() } 0..5 ],
         'colour' => '#40FF0D',
+        'text'   => 'some legend',
     );
     $bar->values();
     $chart->add_element($bar);
@@ -50,12 +51,14 @@ sub main {
             'colour' => '#40FF0D',
             'type'   => 'bar',
             'values' => [ 12,11,10,9,8,7 ],
+            'text'   => 'some legend'
         },
         'bar element TO_JSON'
     );
 
     my $bar2 = Chart::OFC2::Bar::Filled->new(
         'colour' => '#186000',
+        'text'   => 'some other legend',
     );
     $bar2->values([ 10..15 ]);
     $chart->add_element($bar2);

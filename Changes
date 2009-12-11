@@ -1,5 +1,8 @@
 Revision history for Chart::OFC2
 
+0.07    11 12 2009
+        - added "text" property to elements
+
 0.06    25.09.2009
         - #50019 rotate for labels (thanks to noesnaterse <noe@noesnaterse.nl>)
         - removed Perl 5.10 constructs to promote compatibility with older Perls (thanks to Adam J. Foxson)
