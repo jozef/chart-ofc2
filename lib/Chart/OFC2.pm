@@ -339,7 +339,7 @@ file in html every time you generate new data. Like C<"data.json?".time()>.
 
 =head1 SEE ALSO
 
-L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>, L<http://svn.cle.sk/repos/pub/cpan/Chart-OFC2/trunk/>
+L<Chart::OFC>, L<http://teethgrinder.co.uk/open-flash-chart-2/>, L<http://github.com/jozef/chart-ofc2/>
 
 =head1 AUTHOR
 
