@@ -4,8 +4,9 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 15;
+use Test::More tests => 23;
 use Test::Differences;
+use Test::Exception;
 
 use JSON::XS;
 
@@ -27,17 +28,21 @@ sub main {
         offset      => 1,
         steps       => 11,
         '3d'        => 1,
-        labels      => [ qw( a b c d ) ],
+        labels      => { 
+            labels => [ qw( a b c d ) ],
+        },
     );
     my %y_axis_attributes = (
         stroke      => 10,
-        colour      => 'red',
+        color       => 'red',
         tick_length => 3,
         grid_colour => 'black',
         offset      => 1,
         steps       => 11,
         '3d'        => 1,
-        labels      => [ qw( a b c d ) ],
+        labels      => { 
+            labels => [ qw( a b c d ) ],
+        },
     );
     
     my $x_axis   = Chart::OFC2::XAxis->new(%x_axis_attributes);
@@ -54,7 +59,12 @@ sub main {
     is($x_axis->name, 'x_axis', 'check default name');
     is($y_axis->name, 'y_axis', 'check default name');
     is($y_axis_r->name, 'y_axis_right', 'check default name');
-    
+    is($x_axis->color, $x_axis_attributes{colour}, 'check color() accessor aliases colour() accessor');
+    is($y_axis->grid_color, $y_axis_attributes{grid_colour}, 'check grid_color() accessor aliases grid_colour() accessor');
+    is($y_axis->colour, $y_axis_attributes{color}, 'check color parameter to Chart::OFC2::Axis::new() can be used to initialize colour attribute.');
+
+    $y_axis_attributes{colour} = delete $y_axis_attributes{color};
+
     eq_or_diff(
         $x_axis->TO_JSON,
         { %x_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),},
@@ -79,6 +89,16 @@ sub main {
         { labels => [ qw( a b c d ) ], rotate => 45, },
         'y axis labels (rotated)'
     );
+
+    $x_axis->color('blue');
+    $y_axis->grid_color('orange');
+
+    is($x_axis->colour, 'blue',        'check color() modifier aliases colour() modifier');
+    is($y_axis->grid_colour, 'orange', 'check grid_color() modifier aliases grid_colour() modifier');
     
+    dies_ok { $y_axis->steps(-5) }  'check that using steps() modifier to set steps to a negative value will fail';
+    dies_ok { $y_axis->steps(0) }   'check that using steps() modifier to set steps to a zero will fail';
+    dies_ok { $y_axis->steps(1.5) } 'check that using steps() modifier to set steps to a non-integer will fail';
+
     return 0;
 }

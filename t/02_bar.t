@@ -26,7 +26,9 @@ sub main {
     my $chart = Chart::OFC2->new(
         'title'  => 'Bar chart test',
         'x_axis' => Chart::OFC2::XAxis->new(
-            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+            labels => { 
+                labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ]
+            }
         ),
         'y_axis' => {
             'max' => 'a',

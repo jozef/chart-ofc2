@@ -9,15 +9,17 @@ Chart::OFC2::Labels - OFC2 labels object
     use Chart::OFC2::Labels;
     
     'x_axis' => Chart::OFC2::XAxis->new(
-        'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+        labels => { 
+            labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ]
+        }
     ),
 
     'x_axis' => Chart::OFC2::XAxis->new(
-        'labels' => Chart::OFC2::Labels->new(
-            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
-            'colour' => '#555555',
-            'rotate' => 45,
-        ),
+        labels => {
+            labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+            colour => '#555555',
+            rotate => 45
+        }
     ),
 
 =head1 DESCRIPTION
@@ -27,23 +29,20 @@ Chart::OFC2::Labels - OFC2 labels object
 use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
+use MooseX::Aliases;
 
 our $VERSION = '0.07';
-
-coerce 'Chart::OFC2::Labels'
-    => from 'ArrayRef'
-    => via { Chart::OFC2::Labels->new('labels' => $_) };
 
 =head1 PROPERTIES
 
     has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
-    has 'colour' => ( is => 'rw', isa => 'Str',  );
+    has 'colour' => ( is => 'rw', isa => 'Str', alias => 'color' );
     has 'rotate' => ( is => 'rw', isa => 'Num', );
 
 =cut
 
 has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
-has 'colour' => ( is => 'rw', isa => 'Str',  );
+has 'colour' => ( is => 'rw', isa => 'Str', alias => 'color' );
 has 'rotate' => ( is => 'rw', isa => 'Num', );
 
 
@@ -71,6 +70,16 @@ sub TO_JSON {
     else {
         return [ @{$self->labels} ];
     }
+}
+
+=head2 color()
+
+Same as colour().
+
+=cut
+
+sub color {
+    &colour;
 }
 
 1;
