@@ -25,8 +25,10 @@ OFC2 bar chart data:
     
     my $chart = Chart::OFC2->new(
         'title'  => 'Bar chart test',
-        'x_axis' => {
-            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May' ],
+        x_axis => {
+            labels => {
+                labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May' ],
+            }
         },
     );
     
@@ -61,6 +63,7 @@ F<t/output/pie-data.json>, F<t/output/hbar-data.json> are the data files.
 use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
+use MooseX::Aliases;
 
 our $VERSION = '0.07';
 
@@ -85,12 +88,9 @@ use List::MoreUtils 'any';
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
     has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
     has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip',);
+    has 'bg_colour'      => (is => 'rw', isa => 'Str',  default => 'f8f8d8', alias => 'bg_color' );
 
 =cut
-
-subtype 'Chart.OFC2.NaturalInt'
-    => as 'Int'
-    => where { $_ > 0 };
 
 has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
@@ -101,8 +101,7 @@ has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
 has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip', coerce  => 1);
-has 'bg_colour'      => (is => 'rw', isa => 'Str',  default => 'f8f8d8');
-
+has 'bg_colour'      => (is => 'rw', isa => 'Str',  default => 'f8f8d8', alias => 'bg_color' );
 
 =head1 METHODS
 
@@ -324,6 +323,16 @@ sub smooth {
     }
     
     return smoother_number($number, $axis_type);
+}
+
+=head2 bg_color()
+
+Same as bg_colour().
+
+=cut
+
+sub bg_color {
+    &bg_colour;
 }
 
 1;

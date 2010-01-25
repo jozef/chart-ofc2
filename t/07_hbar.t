@@ -26,7 +26,9 @@ sub main {
     my $chart = Chart::OFC2->new(
         'title'  => 'HBar chart test',
         'y_axis' => Chart::OFC2::YAxis->new(
-            'labels' => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
+            labels => { 
+                labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ]
+            },
             'offset' => 1,
         ),
         'tooltip' => {
