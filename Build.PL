@@ -23,6 +23,7 @@ my $builder = Module::Build->new(
     build_requires => {
         'Test::More'        => 0,
         'Test::Differences' => 0,
+        'Test::Exception'   => 0,
         'File::Slurp'       => 0,
     },
     script_files => [

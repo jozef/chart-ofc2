@@ -4,8 +4,9 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 15;
+use Test::More tests => 19;
 use Test::Differences;
+use Test::Exception;
 
 use JSON::XS;
 
@@ -79,6 +80,12 @@ sub main {
         { labels => [ qw( a b c d ) ], rotate => 45, },
         'y axis labels (rotated)'
     );
+    
+    # test steps constrain
+    lives_ok { $y_axis->steps(5); } 'axis steps 5 is ok';
+    dies_ok  { $y_axis->steps(0); } 'axis steps 0 is not ok';
+    dies_ok  { $y_axis->steps(1.5); } 'axis steps 1.5 is not ok';
+    dies_ok  { $y_axis->steps(-1); } 'axis steps -1 is not ok';
     
     return 0;
 }
