@@ -1,0 +1,16 @@
+/Makefile
+/blib
+/pm_to_blib
+/META.yml
+/MYMETA.yml
+/Makefile.PL
+/Build
+/_build
+/*.tar.gz
+/MANIFEST.bak
+/MANIFEST.SKIP.bak
+/cover_db
+/tmp/*
+/XML-Char-*
+/lib/XML/Char.c
+/lib/XML/Char.o

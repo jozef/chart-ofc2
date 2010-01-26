@@ -1,0 +1,16 @@
+Build.PL
+Changes
+lib/XML/Char.h
+lib/XML/Char.pm
+lib/XML/Char.xs
+lib/XML/ppport.h
+Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/01_XML-Char.t
+t/distribution.t
+t/fixme.t
+t/pod-coverage.t
+t/pod-spell.t
+t/pod.t
