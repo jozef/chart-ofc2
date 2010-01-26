@@ -104,6 +104,8 @@ sub grid_color {
     &grid_colour;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 

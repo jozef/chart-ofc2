@@ -335,6 +335,8 @@ sub bg_color {
     &bg_colour;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 

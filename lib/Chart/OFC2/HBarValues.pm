@@ -81,6 +81,8 @@ sub TO_JSON {
     return [ reverse @{$self->values} ];
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 

@@ -98,6 +98,8 @@ sub TO_JSON {
     return \@values_with_labels;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 

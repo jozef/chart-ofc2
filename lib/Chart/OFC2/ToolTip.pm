@@ -77,6 +77,8 @@ sub TO_JSON {
     };
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 
