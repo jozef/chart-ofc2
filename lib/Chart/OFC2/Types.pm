@@ -64,4 +64,8 @@ Coerces from HashRef via L<Chart::OFC2::Labels/new>
 
 =back
 
+=head1 AUTHOR
+
+Jeff Tam
+
 =cut
