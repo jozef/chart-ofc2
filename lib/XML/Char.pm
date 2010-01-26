@@ -47,7 +47,6 @@ use parent qw(DynaLoader);
 
 use Exporter 'import';
 our @EXPORT_OK = qw(
-    perlapi_is_utf8_string
 );
 
 __PACKAGE__->bootstrap;
