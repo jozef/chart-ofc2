@@ -10,7 +10,7 @@ use MooseX::Types
     )];
 
 use Chart::OFC2::Labels;
-use MooseX::Types::Moose qw( Int HashRef );
+use MooseX::Types::Moose qw( Int HashRef ArrayRef );
 
 subtype PositiveInt,
     as Int,
@@ -21,6 +21,9 @@ class_type ChartOFC2Labels, { class => 'Chart::OFC2::Labels' };
 coerce ChartOFC2Labels,
     from HashRef,
     via { Chart::OFC2::Labels->new($_) };
+coerce ChartOFC2Labels,
+    from ArrayRef,
+    via { Chart::OFC2::Labels->new({'labels' => $_}) };
 
 1;
 

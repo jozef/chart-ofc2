@@ -26,9 +26,7 @@ sub main {
     my $chart = Chart::OFC2->new(
         'title'  => 'Line chart test',
         'x_axis' => Chart::OFC2::XAxis->new(
-            labels => { 
-                labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ]
-            },
+            labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ],
             is3d   => 1,
         ),
         'y_axis' => Chart::OFC2::YAxis->new(

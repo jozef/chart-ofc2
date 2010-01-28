@@ -28,9 +28,7 @@ sub main {
         offset      => 1,
         steps       => 11,
         is3d        => 1,
-        labels      => { 
-            labels => [ qw( a b c d ) ],
-        },
+        labels      => [ qw( a b c d ) ],
     );
     my %y_axis_attributes = (
         stroke      => 10,
