@@ -19,6 +19,9 @@ my $builder = Module::Build->new(
         'List::MoreUtils' => 0,
         'List::Util'      => 0,
         'Scalar::Util'    => 0,
+        'MooseX::Types'   => 0,
+        'MooseX::Aliases' => 0,
+        
     },
     build_requires => {
         'Test::More'        => 0,
