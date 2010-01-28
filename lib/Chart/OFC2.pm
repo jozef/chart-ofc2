@@ -370,6 +370,7 @@ order):
     John Goulah C<< <jgoulah@cpan.org> >>
     Noë Snaterse
     Adam J. Foxson C<< <atom@cpan.org> >>
+    Jeff Tam
 
 =head1 SUPPORT
 
