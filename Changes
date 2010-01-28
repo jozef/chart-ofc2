@@ -2,6 +2,7 @@ Revision history for Chart::OFC2
 
 0.07    11 12 2009
         - #50419 added "text" property to elements (thanks to Noe Snaterse)
+        - renamed "3d" property to "is3d" to avoid accessor name starting with a number (reported by John Goulah)
 
 0.06    25.09.2009
         - #50019 rotate for labels (thanks to noesnaterse <noe@noesnaterse.nl>)

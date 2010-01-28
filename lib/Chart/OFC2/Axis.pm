@@ -39,7 +39,7 @@ use Chart::OFC2::Types qw( PositiveInt ChartOFC2Labels );
     has 'colour'      => ( is => 'rw', isa => 'Str', alias => 'color' );
     has 'offset'      => ( is => 'rw', isa => 'Bool', );
     has 'grid_colour' => ( is => 'rw', isa => 'Str', alias => 'grid_color');
-    has '3d'          => ( is => 'rw', isa => 'Bool', );
+    has 'is3d'        => ( is => 'rw', isa => 'Bool', );
     has 'steps'       => ( is => 'rw', isa => PositiveInt, );
     has 'visible'     => ( is => 'rw', isa => 'Bool',  );
     has 'min'         => ( is => 'rw', isa => 'Num|Str|Undef', );   # can be 'a' for auto too
@@ -60,7 +60,7 @@ has 'stroke'      => ( is => 'rw', isa => 'Int', );
 has 'colour'      => ( is => 'rw', isa => 'Str', alias => 'color' );
 has 'offset'      => ( is => 'rw', isa => 'Bool', );
 has 'grid_colour' => ( is => 'rw', isa => 'Str', alias => 'grid_color');
-has '3d'          => ( is => 'rw', isa => 'Bool', );
+has 'is3d'        => ( is => 'rw', isa => 'Bool', );
 has 'steps'       => ( is => 'rw', isa => PositiveInt, );
 has 'visible'     => ( is => 'rw', isa => 'Bool',  );
 has 'min'         => ( is => 'rw', isa => 'Num|Str|Undef', );   # can be 'a' for auto too
@@ -77,11 +77,15 @@ Returns HashRef that is possible to give to C<encode_json()> function.
 sub TO_JSON {
     my ($self) = @_;
     
-    return {
+    my %json = (
         map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
         grep { $_ ne 'name' }
         map  { $_->name } $self->meta->get_all_attributes
-    };
+    );
+    $json{'3d'} = delete $json{'is3d'}
+        if (exists $json{'is3d'});
+
+    return \%json;
 }
 
 =head2 color()

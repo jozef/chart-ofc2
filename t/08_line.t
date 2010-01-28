@@ -29,6 +29,7 @@ sub main {
             labels => { 
                 labels => [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ]
             },
+            is3d   => 1,
         ),
         'y_axis' => Chart::OFC2::YAxis->new(
             'min'    => 'a',

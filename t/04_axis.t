@@ -27,7 +27,7 @@ sub main {
         grid_colour => 'black',
         offset      => 1,
         steps       => 11,
-        '3d'        => 1,
+        is3d        => 1,
         labels      => { 
             labels => [ qw( a b c d ) ],
         },
@@ -39,7 +39,7 @@ sub main {
         grid_colour => 'black',
         offset      => 1,
         steps       => 11,
-        '3d'        => 1,
+        is3d        => 1,
         labels      => { 
             labels => [ qw( a b c d ) ],
         },
@@ -67,13 +67,19 @@ sub main {
 
     eq_or_diff(
         $x_axis->TO_JSON,
-        { %x_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),},
+        {
+            map { $_ eq 'is3d' ? '3d' : $_ }
+            %x_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels')
+        },
         'x axis hash encoding'
     );
     
     eq_or_diff(
         $y_axis->TO_JSON,
-        { %y_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),},
+        {
+            map { $_ eq 'is3d' ? '3d' : $_ }
+            %y_axis_attributes, labels => bless({ labels => [ qw( a b c d ) ] }, 'Chart::OFC2::Labels'),
+        },
         'y axis hash encoding'
     );
     
