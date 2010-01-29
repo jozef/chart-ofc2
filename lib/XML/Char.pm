@@ -12,7 +12,8 @@ XML::Char - validate characters for XML
     if (not XML::Char->valid("bell ".chr(7))) {
         die 'no way to store this string directly to XML';
     }
-
+    
+    use utf8;
     use XML::Char;
     if (XML::Char->valid("UTF8 je pořádný peklo")) {
         print "fuf, we are fine\n";
