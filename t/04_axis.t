@@ -83,7 +83,7 @@ sub main {
     
     eq_or_diff(
         $y_axis->labels->TO_JSON,
-        [ qw( a b c d ) ],
+        { labels => [ qw( a b c d ) ], },
         'y axis labels'
     );
     
