@@ -2,11 +2,11 @@
 /blib
 /pm_to_blib
 /META.yml
-/README
+/MYMETA.yml
 /Makefile.PL
 /Build
 /_build
-/Chart-OFC2-*.tar.gz
+/Chart-OFC2-*
 /MANIFEST.bak
 /cover_db
 /t/output/bar.html
