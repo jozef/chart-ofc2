@@ -65,7 +65,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use MooseX::Aliases;
 
-our $VERSION = '0.07_01';
+our $VERSION = '0.07';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();

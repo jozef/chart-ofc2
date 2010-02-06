@@ -17,7 +17,7 @@ use Moose;
 use MooseX::StrictConstructor;
 extends 'Chart::OFC2::Element';
 
-our $VERSION = '0.07_01';
+our $VERSION = '0.07';
 
 =head1 PROPERTIES
 
