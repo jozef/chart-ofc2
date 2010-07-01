@@ -41,7 +41,7 @@ Chart::OFC2::Pie - OFC2 Pie chart
 use Moose;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_01';
 
 extends 'Chart::OFC2::Element';
 

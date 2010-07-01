@@ -17,7 +17,7 @@ use MooseX::StrictConstructor;
 use Carp::Clan 'croak';
 use List::MoreUtils 'any';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_01';
 
 coerce 'Chart::OFC2::HBarValues'
     => from 'ArrayRef'
