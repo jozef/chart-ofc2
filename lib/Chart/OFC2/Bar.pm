@@ -31,6 +31,18 @@ Chart::OFC2::Bar - OFC2 bar chart
 
 	extends 'Chart::OFC2::BarLineBase';
 
+=head1 EXAMPLES
+
+=begin html
+
+<div><img src="http://github.com/jozef/chart-ofc2/raw/master/examples/screenshots/bar-chart-test.png" width="600" height="400" alt="Bar chart test" title="click link below to see the interactive chart" /></div>
+<ul>
+<li><a href="http://cpansearch.perl.org/src/JKUTEJ/Chart-OFC2-0.08_01/examples/for-pod/bar.html">interactive version</a></li>
+<li><a href="http://cpansearch.perl.org/src/JKUTEJ/Chart-OFC2-0.08_01/examples/for-pod/bar-data.json">json source</a></li>
+</ul>
+
+=end html
+
 =cut
 
 use Moose;
