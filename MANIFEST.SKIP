@@ -31,5 +31,8 @@
 t/output/.*\.json
 t/output/[^_].+\.html
 
-Chart-OFC2-.*\.tar\.gz
+^tmp/
+.*\.tar\.gz
 ^MYMETA.yml$
+^Chart-OFC2-
+

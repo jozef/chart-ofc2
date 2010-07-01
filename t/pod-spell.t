@@ -17,5 +17,16 @@ add_stopwords(qw(
 	JSON
 	TBD
 	html
+	ChartOFC
+	isa
+	rw
+	AnnoCPAN
+	CPAN
+	GPL
+	GitHub
+	IRC
+	blog
+	RT
+	PositiveInt
 ));
 all_pod_files_spelling_ok();

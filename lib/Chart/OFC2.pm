@@ -361,9 +361,9 @@ that is shipped together with all the rest OFC2 files.
 
 =head1 CONTRIBUTORS
  
-The following people have contributed to the Chart::OFC2 by commiting their
+The following people have contributed to the Chart::OFC2 by committing their
 code, sending patches, reporting bugs, asking questions, suggesting useful
-advices, nitpicking, chatting on IRC or commenting on my blog (in no particular
+advice, nitpicking, chatting on IRC or commenting on my blog (in no particular
 order):
 
     Rodney Webster
@@ -376,7 +376,7 @@ order):
 
 =over 4
 
-=item * Mailinglist
+=item * Mailing list
 
 L<http://lists.meon.sk/mailman/listinfo/chart-ofc2>
 

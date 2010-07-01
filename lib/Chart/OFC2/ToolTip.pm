@@ -21,7 +21,7 @@ Chart::OFC2::ToolTip - OFC2 tool tip settings object
 
 =head1 DESCRIPTION
 
-OFC2 tooltip settings.
+OFC2 tool tip settings.
 
 =cut
 
