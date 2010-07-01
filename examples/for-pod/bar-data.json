@@ -1,0 +1,53 @@
+{
+   "tooltip" : null,
+   "y_axis" : {
+      "min" : 6,
+      "max" : 20
+   },
+   "x_axis" : {
+      "labels" : {
+         "rotate" : 45,
+         "colour" : "#555555",
+         "labels" : [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun"
+         ]
+      }
+   },
+   "elements" : [
+      {
+         "text" : "some legend",
+         "colour" : "#40FF0D",
+         "type" : "bar",
+         "values" : [
+            12,
+            11,
+            10,
+            9,
+            8,
+            7
+         ]
+      },
+      {
+         "text" : "some other legend",
+         "colour" : "#186000",
+         "type" : "bar_filled",
+         "values" : [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+         ]
+      }
+   ],
+   "bg_colour" : "f0f8ff",
+   "title" : {
+      "text" : "Bar chart test"
+   }
+}
