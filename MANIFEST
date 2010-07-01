@@ -16,7 +16,6 @@ lib/Chart/OFC2/Scatter.pm
 lib/Chart/OFC2/Title.pm
 lib/Chart/OFC2/ToolTip.pm
 lib/Chart/OFC2/Types.pm
-Makefile.PL
 MANIFEST			This list of files
 META.yml
 README

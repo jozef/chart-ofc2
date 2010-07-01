@@ -32,8 +32,6 @@ my $builder = Module::Build->new(
     script_files => [
     ],
     add_to_cleanup      => [ 'Chart-OFC2-*' ],
-    create_makefile_pl => 'traditional',
-    create_readme       => 1,
     sign                => 1,
     meta_merge => {
         resources => {
