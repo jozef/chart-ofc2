@@ -1,0 +1,44 @@
+{
+   "tooltip" : null,
+   "y_axis" : {},
+   "x_axis" : {},
+   "elements" : [
+      {
+         "tip" : "#val# of #total#<br>#percent# of 100%",
+         "colours" : [
+            "#d01f3c",
+            "#356aa0",
+            "#C79810",
+            "#73880A",
+            "#D15600"
+         ],
+         "type" : "pie",
+         "values" : [
+            {
+               "value" : 145,
+               "label" : "IE"
+            },
+            {
+               "value" : 267,
+               "label" : "Chrome"
+            },
+            {
+               "value" : 301,
+               "label" : "Opera"
+            },
+            {
+               "value" : 467,
+               "label" : "Firefox"
+            },
+            {
+               "value" : 58,
+               "label" : "Other"
+            }
+         ]
+      }
+   ],
+   "bg_colour" : "f0f8ff",
+   "title" : {
+      "text" : "Pie Chart"
+   }
+}
