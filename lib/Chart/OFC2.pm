@@ -84,8 +84,10 @@ use List::MoreUtils 'any';
     has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
     has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
     has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
+    has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
     has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
-    has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', default => sub { Chart::OFC2::YAxisRight->new() }, lazy => 1, );
+    has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
+    has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', coerce => 1 );
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
     has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
     has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip',);
@@ -97,8 +99,10 @@ has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
 has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1, coerce  => 1);
+has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
 has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, coerce  => 1);
-has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', default => sub { Chart::OFC2::YAxisRight->new() }, lazy => 1, coerce => 1 );
+has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
+has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', coerce => 1 );
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
@@ -142,14 +146,14 @@ Adds passed element to the graph.
 
 sub add_element {
     my ($self, $element) = @_;
-    
+
     if ($element->use_extremes) {
         $self->y_axis->max('a');
         $self->y_axis->min('a');
         $self->x_axis->max('a');
         $self->x_axis->min('a');
     }
-    
+
     push(@{ $self->elements }, $element);
 }
 
@@ -165,15 +169,29 @@ sub render_chart_data {
 
     $self->auto_extremes();
 
-    return $self->_json->encode({
-        'title'        => $self->title,
-        'x_axis'       => $self->x_axis,
-        'y_axis'       => $self->y_axis,
-        'y_axis_right' => $self->y_axis_right,
-        'tooltip'      => $self->tooltip,
-        'elements'     => $self->elements,
-        'bg_colour'    => $self->bg_colour,
-    });
+    my $data = {
+                'title'        => $self->title,
+                'x_axis'       => $self->x_axis,
+                'y_axis'       => $self->y_axis,
+                'elements'     => $self->elements,
+                'bg_colour'    => $self->bg_colour,
+                'tooltip'      => $self->tooltip,
+    };
+
+     if( $self->tooltip ){
+         $data->{tooltip} = $self->tooltip;
+     }
+     if( $self->y_axis_right ){
+         $data->{y_axis_right} = $self->y_axis_right;
+     }
+     if( $self->y_legend ){
+         $data->{y_legend} = $self->y_legend;
+     }
+     if( $self->x_legend ){
+         $data->{x_legend} = $self->x_legend;
+     }
+
+    return $self->_json->encode( $data );
 }
 
 

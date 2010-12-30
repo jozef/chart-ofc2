@@ -34,6 +34,10 @@ coerce 'Chart::OFC2::Title'
     => from 'Str'
     => via { Chart::OFC2::Title->new('text' => $_) };
 
+coerce 'Chart::OFC2::Title'
+    => from 'HashRef'
+    => via { Chart::OFC2::Title->new( $_ ) };
+
 =head1 PROPERTIES
 
     has 'text'  => (is => 'rw', isa => 'Str', );
@@ -42,7 +46,7 @@ coerce 'Chart::OFC2::Title'
 =cut
 
 has 'text'  => (is => 'rw', isa => 'Str', );
-has 'style' => (is => 'rw', isa => 'Str', );
+has 'style' => (is => 'rw', isa => 'Str', default => '{}' );
 
 
 =head1 METHODS

@@ -44,6 +44,7 @@ our $VERSION = '0.08_01';
 has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
 has 'colour' => ( is => 'rw', isa => 'Str', alias => 'color' );
 has 'rotate' => ( is => 'rw', isa => 'Num', );
+has 'steps' =>  ( is => 'rw', isa => 'Num', );
 
 
 =head1 METHODS
