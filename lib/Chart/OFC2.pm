@@ -65,7 +65,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use MooseX::Aliases;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();
@@ -85,6 +85,7 @@ use List::MoreUtils 'any';
     has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
     has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
     has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
+    has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', default => sub { Chart::OFC2::YAxisRight->new() }, lazy => 1, );
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
     has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
     has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip',);
@@ -97,6 +98,7 @@ has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
 has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1, coerce  => 1);
 has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, coerce  => 1);
+has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', default => sub { Chart::OFC2::YAxisRight->new() }, lazy => 1, coerce => 1 );
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
@@ -162,14 +164,15 @@ sub render_chart_data {
     my $self = shift;
 
     $self->auto_extremes();
-    
+
     return $self->_json->encode({
-        'title'    => $self->title,
-        'x_axis'   => $self->x_axis,
-        'y_axis'   => $self->y_axis,
-        'tooltip'  => $self->tooltip,
-        'elements' => $self->elements,
-        'bg_colour' => $self->bg_colour,
+        'title'        => $self->title,
+        'x_axis'       => $self->x_axis,
+        'y_axis'       => $self->y_axis,
+        'y_axis_right' => $self->y_axis_right,
+        'tooltip'      => $self->tooltip,
+        'elements'     => $self->elements,
+        'bg_colour'    => $self->bg_colour,
     });
 }
 
@@ -182,11 +185,11 @@ Recalculate graph auto extremes.
 
 sub auto_extremes {
     my $self = shift;
-        
-    foreach my $axis_name ('x_axis', 'y_axis') {
+
+    foreach my $axis_name ('x_axis', 'y_axis', 'y_axis_right') {
         my $axis = $self->$axis_name;
         next if not defined $axis;
-        
+
         foreach my $axis_type ('min', 'max') {
             my $axis_value = $axis->$axis_type;
             if ((defined $axis_value) and ($axis_value eq 'a')) {
@@ -194,7 +197,6 @@ sub auto_extremes {
             }
         }
     }
-    
     return;
 }
 
@@ -371,6 +373,7 @@ order):
     Noë Snaterse
     Adam J. Foxson C<< <atom@cpan.org> >>
     Jeff Tam
+    Robin Clarke C<< <rcl@cpan.org> >>
 
 =head1 SUPPORT
 

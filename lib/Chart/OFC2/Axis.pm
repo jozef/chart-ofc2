@@ -24,7 +24,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use MooseX::Aliases;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 use Chart::OFC2;
 use Chart::OFC2::Labels;
@@ -53,6 +53,9 @@ coerce 'Chart::OFC2::XAxis'
 coerce 'Chart::OFC2::YAxis'
     => from 'HashRef'
     => via { Chart::OFC2::YAxis->new($_) };
+coerce 'Chart::OFC2::YAxisRight'
+    => from 'HashRef'
+    => via { Chart::OFC2::YAxisRight->new($_) };
 
 has 'name'        => ( is => 'rw', isa => enum(['x_axis', 'y_axis', 'y_axis_right']), required => 1 );
 has 'labels'      => ( is => 'rw', isa => ChartOFC2Labels, coerce  => 1);
@@ -171,24 +174,25 @@ has 'tick_length' => ( is => 'rw', isa => 'Int', );
 
 y axis on the right side object.
 
-    extends 'Chart::OFC2::YAxis';
+    extends 'Chart::OFC2::Axis';
 
 =cut
 
 package Chart::OFC2::YAxisRight;
-
 use Moose;
 use MooseX::StrictConstructor;
 
-extends 'Chart::OFC2::YAxis';
+extends 'Chart::OFC2::Axis';
 
 =head1 PROPERTIES
 
     has '+name' => ( default => 'y_axis_right' );
+    has 'tick_length' => ( is => 'rw', isa => 'Int', );
 
 =cut
 
 has '+name' => ( default => 'y_axis_right' );
+has 'tick_length' => ( is => 'rw', isa => 'Int', );
 
 1;
 
