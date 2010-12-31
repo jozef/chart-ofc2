@@ -72,6 +72,7 @@ use JSON::XS qw();
 
 use Chart::OFC2::Axis;
 use Chart::OFC2::Bar;
+use Chart::OFC2::Legend;
 use Chart::OFC2::Title;
 use Chart::OFC2::Extremes;
 use Chart::OFC2::ToolTip;
@@ -84,9 +85,9 @@ use List::MoreUtils 'any';
     has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
     has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
     has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
-    has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
+    has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
     has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
-    has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
+    has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
     has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', coerce => 1 );
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
     has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
@@ -99,9 +100,9 @@ has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
 has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1, coerce  => 1);
-has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
+has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
 has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, coerce  => 1);
-has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Title', coerce => 1 );
+has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
 has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', coerce => 1 );
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
@@ -169,28 +170,12 @@ sub render_chart_data {
 
     $self->auto_extremes();
 
-    my $data = {
-                'title'        => $self->title,
-                'x_axis'       => $self->x_axis,
-                'y_axis'       => $self->y_axis,
-                'elements'     => $self->elements,
-                'bg_colour'    => $self->bg_colour,
-                'tooltip'      => $self->tooltip,
-    };
-
-     if( $self->tooltip ){
-         $data->{tooltip} = $self->tooltip;
-     }
-     if( $self->y_axis_right ){
-         $data->{y_axis_right} = $self->y_axis_right;
-     }
-     if( $self->y_legend ){
-         $data->{y_legend} = $self->y_legend;
-     }
-     if( $self->x_legend ){
-         $data->{x_legend} = $self->x_legend;
-     }
-
+    my $data;
+    foreach( qw/title x_axis y_axis elements bg_colour tooltip y_axis_right y_legend x_legend/ ){
+        if( $self->{$_} ){
+            $data->{$_} = $self->{$_};
+        }
+    }
     return $self->_json->encode( $data );
 }
 
