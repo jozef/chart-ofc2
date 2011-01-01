@@ -20,7 +20,7 @@ use MooseX::StrictConstructor;
 use Chart::OFC2::Extremes;
 use Scalar::Util 'looks_like_number', 'reftype';
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 =head1 PROPERTIES
 
@@ -31,6 +31,7 @@ our $VERSION = '0.08_01';
         line line_dot line_hollow
         area_hollow
         scatter
+        candle
     )]), required => 1);
     has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]); } );
     has 'extremes'     => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
@@ -50,6 +51,7 @@ has 'type_name'    => (is => 'rw', isa => enum([qw(
     line line_dot line_hollow
     area_hollow
     scatter
+    candle
 )]), required => 1);
 has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]); } );
 has 'extremes'     => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
