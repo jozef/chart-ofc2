@@ -66,47 +66,37 @@ extends 'Chart::OFC2::BarLineBase';
 
 	has '+type_name' => (default => 'candle');
     has '+tip'       => (is => 'rw', isa => 'Str', );
+    has 'values'     => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]);
+                                                                         $_[0]->process_values( $_[1] ) } );
 
 =cut
 
 has '+type_name' => ( default => 'candle');
 has '+tip'       => (is => 'rw', isa => 'Str', );
+has 'values'     => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]);
+                                                                     $_[0]->process_values( $_[1] ) } );
 
+# Candle can have data in two formats:
+# [ [ 10, 8, 5, 1 ], [ 8, 3, 2, 1 ] ]
+# or
+# [ { 'high' => 10, 'top' => 8, 'bottom' => 5, 'low' => 1 }, { 'high' => 8, 'top' => 3, 'bottom' => 2, 'low' => 1 } ]
+# If value sets are passed in the later format, nothing needs to be done.
+# If value sets are passed in the first format, they should be transformed to the later format so that
+# the data output will be usable by the graph
+sub process_values{
+    my( $self, $values ) = @_;
 
-# Override the standard TO_JSON to do good output for the values.
-# Better would be to have a trigger on "values" to check the values and format them
-# when they are added.
-sub TO_JSON {
-    my $self = shift;
-    
-    my %hash = (
-        map  { my $v = $self->$_; (defined $v ? ($_ => $v) : ()) }
-        grep { $_ ne 'extremes' }
-        grep { $_ ne 'type_name' }
-        grep { $_ ne 'values' }
-        grep { $_ ne 'use_extremes' }
-        map  { $_->name }
-        $self->meta->get_all_attributes
-    );
-    $hash{'type'} = $self->type_name;
-    
-    my @values;
-    foreach my $entry( @{ $self->values } ){
-        if( ref( $entry ) eq 'ARRAY' ){
-            Chart::OFC2::Element::_make_numbers_numbers($entry);
-            my @sorted = sort{ $a <=> $b }( @$entry );
-            push( @values, { 'low'    => $sorted[0],
-                             'bottom' => $sorted[1],
-                             'top'    => $sorted[2],
-                             'high'   => $sorted[3] } );
-        }else{
-            push( @values, $entry )
+    foreach my $idx( 0 .. scalar( @{ $values } ) ){
+        if( ref $values->[$idx] eq 'ARRAY' ){
+            my @sorted = sort{ $a <=> $b }( @{ $values->[$idx] } );
+            $values->[$idx] =  { 'low'    => $sorted[0],
+                                 'bottom' => $sorted[1],
+                                 'top'    => $sorted[2],
+                                 'high'   => $sorted[3] };
         }
     }
-    $hash{'values'} = \@values;
-
-    return \%hash;
 }
+
 
 1;
 

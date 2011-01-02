@@ -10,11 +10,13 @@ lib/Chart/OFC2.pm
 lib/Chart/OFC2/Axis.pm
 lib/Chart/OFC2/Bar.pm
 lib/Chart/OFC2/BarLineBase.pm
+lib/Chart/OFC2/Candle.pm
 lib/Chart/OFC2/Element.pm
 lib/Chart/OFC2/Extremes.pm
 lib/Chart/OFC2/HBar.pm
 lib/Chart/OFC2/HBarValues.pm
 lib/Chart/OFC2/Labels.pm
+lib/Chart/OFC2/Legend.pm
 lib/Chart/OFC2/Line.pm
 lib/Chart/OFC2/Pie.pm
 lib/Chart/OFC2/PieValues.pm

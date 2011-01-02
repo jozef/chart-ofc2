@@ -171,9 +171,9 @@ sub render_chart_data {
     $self->auto_extremes();
 
     my $data;
-    foreach( qw/title x_axis y_axis elements bg_colour tooltip y_axis_right y_legend x_legend/ ){
-        if( $self->{$_} ){
-            $data->{$_} = $self->{$_};
+    foreach my $element( qw/title x_axis y_axis elements bg_colour tooltip y_axis_right y_legend x_legend/ ){
+        if( $self->$element ){
+            $data->{$element} = $self->$element;
         }
     }
     return $self->_json->encode( $data );
