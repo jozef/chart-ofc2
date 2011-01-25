@@ -31,7 +31,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use MooseX::Aliases;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_01';
 
 =head1 PROPERTIES
 
@@ -44,6 +44,7 @@ our $VERSION = '0.07';
 has 'labels' => ( is => 'rw', isa => 'ArrayRef', );
 has 'colour' => ( is => 'rw', isa => 'Str', alias => 'color' );
 has 'rotate' => ( is => 'rw', isa => 'Num', );
+has 'steps' =>  ( is => 'rw', isa => 'Num', );
 
 
 =head1 METHODS

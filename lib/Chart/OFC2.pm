@@ -65,13 +65,14 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use MooseX::Aliases;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_02';
 
 use Carp::Clan 'croak';
 use JSON::XS qw();
 
 use Chart::OFC2::Axis;
 use Chart::OFC2::Bar;
+use Chart::OFC2::Legend;
 use Chart::OFC2::Title;
 use Chart::OFC2::Extremes;
 use Chart::OFC2::ToolTip;
@@ -85,7 +86,10 @@ use List::MoreUtils 'any';
     has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
     has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
     has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1,);
+    has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
     has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, );
+    has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
+    has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', coerce => 1 );
     has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
     has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
     has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip',);
@@ -97,7 +101,10 @@ has 'data_load_type' => (is => 'rw', isa => 'Str',  default => 'inline_js');
 has 'bootstrap'      => (is => 'rw', isa => 'Bool', default => '1');
 has 'title'          => (is => 'rw', isa => 'Chart::OFC2::Title', default => sub { Chart::OFC2::Title->new() }, lazy => 1, coerce  => 1);
 has 'x_axis'         => (is => 'rw', isa => 'Chart::OFC2::XAxis', default => sub { Chart::OFC2::XAxis->new() }, lazy => 1, coerce  => 1);
+has 'x_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
 has 'y_axis'         => (is => 'rw', isa => 'Chart::OFC2::YAxis', default => sub { Chart::OFC2::YAxis->new() }, lazy => 1, coerce  => 1);
+has 'y_legend'       => (is => 'rw', isa => 'Chart::OFC2::Legend', coerce => 1 );
+has 'y_axis_right'   => (is => 'rw', isa => 'Chart::OFC2::YAxisRight', coerce => 1 );
 has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy => 1);
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
@@ -142,14 +149,14 @@ Adds passed element to the graph.
 
 sub add_element {
     my ($self, $element) = @_;
-    
+
     if ($element->use_extremes) {
         $self->y_axis->max('a');
         $self->y_axis->min('a');
         $self->x_axis->max('a');
         $self->x_axis->min('a');
     }
-    
+
     push(@{ $self->elements }, $element);
 }
 
@@ -164,16 +171,14 @@ sub render_chart_data {
     my $self = shift;
 
     $self->auto_extremes();
-    
-    return $self->_json->encode({
-        'title'    => $self->title,
-        'x_axis'   => $self->x_axis,
-        'y_axis'   => $self->y_axis,
-        'tooltip'  => $self->tooltip,
-		'menu'     => $self->menu,
-        'elements' => $self->elements,
-        'bg_colour' => $self->bg_colour,
-    });
+
+    my $data;
+    foreach my $element( qw/title menu x_axis y_axis elements bg_colour tooltip y_axis_right y_legend x_legend/ ){
+        if( $self->$element ){
+            $data->{$element} = $self->$element;
+        }
+    }
+    return $self->_json->encode( $data );
 }
 
 
@@ -185,11 +190,11 @@ Recalculate graph auto extremes.
 
 sub auto_extremes {
     my $self = shift;
-        
-    foreach my $axis_name ('x_axis', 'y_axis') {
+
+    foreach my $axis_name ('x_axis', 'y_axis', 'y_axis_right') {
         my $axis = $self->$axis_name;
         next if not defined $axis;
-        
+
         foreach my $axis_type ('min', 'max') {
             my $axis_value = $axis->$axis_type;
             if ((defined $axis_value) and ($axis_value eq 'a')) {
@@ -197,7 +202,6 @@ sub auto_extremes {
             }
         }
     }
-    
     return;
 }
 
@@ -364,9 +368,9 @@ that is shipped together with all the rest OFC2 files.
 
 =head1 CONTRIBUTORS
  
-The following people have contributed to the Chart::OFC2 by commiting their
+The following people have contributed to the Chart::OFC2 by committing their
 code, sending patches, reporting bugs, asking questions, suggesting useful
-advices, nitpicking, chatting on IRC or commenting on my blog (in no particular
+advice, nitpicking, chatting on IRC or commenting on my blog (in no particular
 order):
 
     Rodney Webster
@@ -374,12 +378,13 @@ order):
     Noë Snaterse
     Adam J. Foxson C<< <atom@cpan.org> >>
     Jeff Tam
+    Robin Clarke C<< <rcl@cpan.org> >>
 
 =head1 SUPPORT
 
 =over 4
 
-=item * Mailinglist
+=item * Mailing list
 
 L<http://lists.meon.sk/mailman/listinfo/chart-ofc2>
 

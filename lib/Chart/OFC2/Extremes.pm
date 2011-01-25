@@ -26,7 +26,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use Carp::Clan 'croak';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_02';
 
 coerce 'Chart::OFC2::Extremes'
     => from 'HashRef'
@@ -65,7 +65,7 @@ sub reset {
     my $self      = shift;
     my $axis_type = shift;
     my $values    = shift;
-    
+
     croak 'pass axis type (x|y) argument'
         if (($axis_type ne 'y') and ($axis_type ne 'x'));
     croak 'pass values argument as array ref'
@@ -73,25 +73,29 @@ sub reset {
 
     my $axis_min = $axis_type.'_axis_min';
     my $axis_max = $axis_type.'_axis_max';
-    
+
     my $max;
     my $min;
     my @values_to_check = @{$values};
     while (scalar @values_to_check) {
         my $value = shift @values_to_check;
-        
+
         next if not defined $value;
         push @values_to_check, @{$value}
             if ref $value eq 'ARRAY';
-        
+
+        # To deal with e.g. Candle chart data
+        push @values_to_check, values( %{$value} )
+          if ref $value eq 'HASH';
+
         next if ref $value ne '';
-        
+
         $max = $value
             if ((not defined $max) or ($value > $max));
         $min = $value
             if ((not defined $min) or ($value < $min));
     }
-    
+
     $self->$axis_min($min)
         if defined $min;
     $self->$axis_max($max)

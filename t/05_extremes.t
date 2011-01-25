@@ -8,7 +8,7 @@ use Test::More tests => 5;
 use Test::Differences;
 
 use FindBin qw($Bin);
-use lib "$Bin/lib";
+use lib "$Bin/../lib";
 
 BEGIN {
     use_ok ( 'Chart::OFC2::Extremes' ) or exit;

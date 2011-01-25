@@ -10,7 +10,7 @@ use File::Spec;
 use Test::Differences;
 
 use FindBin qw($Bin);
-use lib "$Bin/lib";
+use lib "$Bin/../lib";
 
 our $BASE_PATH = File::Spec->catfile($Bin, 'output');
 
@@ -46,6 +46,19 @@ sub main {
             ],
             'type' => 'pie',
             'values' => bless( {
+               'tips' => [ undef,
+                         undef,
+                         undef,
+                         undef,
+                         undef,
+                       ],
+               'clicks' => [
+                           undef,
+                           undef,
+                           undef,
+                           undef,
+                           undef
+                          ],
                'colours' => [
                   '#d01f3c',
                   '#356aa0',

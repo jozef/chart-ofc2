@@ -29,7 +29,7 @@ coerce ChartOFC2Labels,
 
 =head1 NAME
 
-Chart::OFC2::Types - constrainted types and coercions for Chart::OFC2
+Chart::OFC2::Types - constrained types and coercions for Chart::OFC2
 
 =head1 SYNOPSIS
 

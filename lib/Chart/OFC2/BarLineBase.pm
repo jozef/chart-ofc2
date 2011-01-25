@@ -17,20 +17,21 @@ use Moose;
 use MooseX::StrictConstructor;
 extends 'Chart::OFC2::Element';
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_02';
 
 =head1 PROPERTIES
 
 	has 'colour'    => (is => 'rw', isa => 'Str', );
 	has 'text'      => (is => 'rw', isa => 'Str', );
 	has 'font_size' => (is => 'rw', isa => 'Int', );
+    has 'axis'      => (is => 'rw', isa => 'Str', );
 
 =cut
 
 has 'colour'    => (is => 'rw', isa => 'Str', );
 has 'text'      => (is => 'rw', isa => 'Str', );
 has 'font_size' => (is => 'rw', isa => 'Int', );
-
+has 'axis'      => (is => 'rw', isa => 'Str', );
 1;
 
 

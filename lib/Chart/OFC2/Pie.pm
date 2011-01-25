@@ -36,12 +36,24 @@ Chart::OFC2::Pie - OFC2 Pie chart
 
     extends 'Chart::OFC2::Element';
 
+=head1 EXAMPLES
+
+=begin html
+
+<div><img src="http://github.com/jozef/chart-ofc2/raw/master/examples/screenshots/pie-chart.png" width="600" height="350" alt="Bar chart test" title="click link below to see the interactive chart" /></div>
+<ul>
+<li><a href="http://cpansearch.perl.org/src/JKUTEJ/Chart-OFC2-0.08_02/examples/for-pod/pie.html">interactive version</a></li>
+<li><a href="http://cpansearch.perl.org/src/JKUTEJ/Chart-OFC2-0.08_02/examples/for-pod/pie-data.json">json source</a></li>
+</ul>
+
+=end html
+
 =cut
 
 use Moose;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_01';
 
 extends 'Chart::OFC2::Element';
 

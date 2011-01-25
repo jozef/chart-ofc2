@@ -1,6 +1,9 @@
 Revision history for Chart::OFC2
 
-0.07    11 12 2009
+0.08    1 Jul 2010
+        - added picture examples
+
+0.07    11.12.2009
         - #50419 added "text" property to elements (thanks to Noe Snaterse)
         - aliased 'color' to 'colour' (thanks to Jeff Tam)
         - moved coerce and types to Chart::OFC2::Types (thanks to Jeff Tam)

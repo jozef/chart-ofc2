@@ -21,7 +21,6 @@ my $builder = Module::Build->new(
         'Scalar::Util'    => 0,
         'MooseX::Types'   => 0,
         'MooseX::Aliases' => 0,
-        
     },
     build_requires => {
         'Test::More'        => 0,
@@ -32,8 +31,6 @@ my $builder = Module::Build->new(
     script_files => [
     ],
     add_to_cleanup      => [ 'Chart-OFC2-*' ],
-    create_makefile_pl => 'traditional',
-    create_readme       => 1,
     sign                => 1,
     meta_merge => {
         resources => {

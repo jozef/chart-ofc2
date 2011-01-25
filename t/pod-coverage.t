@@ -1,6 +1,10 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More;
+
+use FindBin qw($Bin);
+use lib "$Bin/../lib";
 
 # Ensure a recent version of Test::Pod::Coverage
 my $min_tpc = 1.08;
