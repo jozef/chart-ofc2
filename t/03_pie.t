@@ -10,7 +10,7 @@ use File::Spec;
 use Test::Differences;
 
 use FindBin qw($Bin);
-use lib "$Bin/lib";
+use lib "$Bin/../lib";
 
 our $BASE_PATH = File::Spec->catfile($Bin, 'output');
 

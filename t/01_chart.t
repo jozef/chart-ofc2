@@ -9,7 +9,7 @@ use Test::More tests => 8;
 use File::Slurp 'write_file', 'read_file';
 
 use FindBin qw($Bin);
-use lib "$Bin/lib";
+use lib "$Bin/../lib";
 
 
 our $BASE_PATH = File::Spec->catfile($Bin, 'output');

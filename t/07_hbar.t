@@ -11,7 +11,7 @@ use File::Slurp 'write_file';
 use File::Spec;
 
 use FindBin qw($Bin);
-use lib "$Bin/lib";
+use lib "$Bin/../lib";
 
 our $BASE_PATH = File::Spec->catfile($Bin, 'output');
 

@@ -76,13 +76,19 @@ has '+tip'       => (is => 'rw', isa => 'Str', );
 has 'values'     => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]);
                                                                      $_[0]->process_values( $_[1] ) } );
 
-# Candle can have data in two formats:
-# [ [ 10, 8, 5, 1 ], [ 8, 3, 2, 1 ] ]
-# or
-# [ { 'high' => 10, 'top' => 8, 'bottom' => 5, 'low' => 1 }, { 'high' => 8, 'top' => 3, 'bottom' => 2, 'low' => 1 } ]
-# If value sets are passed in the later format, nothing needs to be done.
-# If value sets are passed in the first format, they should be transformed to the later format so that
-# the data output will be usable by the graph
+=head2 process_values()
+
+Candle can have data in two formats:
+
+ [ [ 10, 8, 5, 1 ], [ 8, 3, 2, 1 ] ]
+or
+ [ { 'high' => 10, 'top' => 8, 'bottom' => 5, 'low' => 1 }, { 'high' => 8, 'top' => 3, 'bottom' => 2, 'low' => 1 } ]
+If value sets are passed in the later format, nothing needs to be done.
+If value sets are passed in the first format, they should be transformed to the later format so that
+the data output will be usable by the graph
+
+=cut
+
 sub process_values{
     my( $self, $values ) = @_;
 

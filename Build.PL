@@ -21,7 +21,6 @@ my $builder = Module::Build->new(
         'Scalar::Util'    => 0,
         'MooseX::Types'   => 0,
         'MooseX::Aliases' => 0,
-        
     },
     build_requires => {
         'Test::More'        => 0,

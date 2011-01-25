@@ -26,7 +26,6 @@ use MooseX::Aliases;
 
 our $VERSION = '0.08_02';
 
-use Chart::OFC2;
 use Chart::OFC2::Labels;
 use Chart::OFC2::Types qw( PositiveInt ChartOFC2Labels );
 
@@ -182,7 +181,7 @@ package Chart::OFC2::YAxisRight;
 use Moose;
 use MooseX::StrictConstructor;
 
-extends 'Chart::OFC2::Axis';
+extends 'Chart::OFC2::YAxis';
 
 =head1 PROPERTIES
 

@@ -11,7 +11,7 @@ use Test::Exception;
 use JSON::XS;
 
 use FindBin qw($Bin);
-use lib "$Bin/lib";
+use lib "$Bin/../lib";
 
 BEGIN {
     use_ok ( 'Chart::OFC2::Axis' ) or exit;
