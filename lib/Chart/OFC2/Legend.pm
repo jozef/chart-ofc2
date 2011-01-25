@@ -1,21 +1,21 @@
-package Chart::OFC2::Title;
+package Chart::OFC2::Legend;
 
 =head1 NAME
 
-Chart::OFC2::Title - OFC2 title object
+Chart::OFC2::Legend - OFC2 legend object
 
 =head1 SYNOPSIS
 
     use Chart::OFC2;
-    use Chart::OFC2::Title;
-    
+    use Chart::OFC2::Legend;
+
     $chart = Chart::OFC2->new(
-        'title'  => 'Bar chart test',
+        'x_legend'  => 'Legend for the X axis',
     );
-    
+
     $chart = Chart::OFC2->new(
-        'title'  => Chart::OFC2::Title->new(
-            'text'  => 'Bar chart test',
+        'x_legend'  => Chart::OFC2::Legend->new(
+            'text'  => 'Legend for the X Axis',
             'style' => '{font-size:20px; font-family:Verdana; text-align:center;}',
         ),
     );
@@ -30,13 +30,13 @@ use MooseX::StrictConstructor;
 
 our $VERSION = '0.08_02';
 
-coerce 'Chart::OFC2::Title'
+coerce 'Chart::OFC2::Legend'
     => from 'Str'
-    => via { Chart::OFC2::Title->new('text' => $_) };
+    => via { Chart::OFC2::Legend->new('text' => $_) };
 
-coerce 'Chart::OFC2::Title'
+coerce 'Chart::OFC2::Legend'
     => from 'HashRef'
-    => via { Chart::OFC2::Title->new( $_ ) };
+    => via { Chart::OFC2::Legend->new( $_ ) };
 
 =head1 PROPERTIES
 
@@ -46,7 +46,7 @@ coerce 'Chart::OFC2::Title'
 =cut
 
 has 'text'  => (is => 'rw', isa => 'Str', );
-has 'style' => (is => 'rw', isa => 'Str', );
+has 'style' => (is => 'rw', isa => 'Str', default => '{}', required => 1 );
 
 
 =head1 METHODS
@@ -80,6 +80,6 @@ __END__
 
 =head1 AUTHOR
 
-Jozef Kutej
+Robin Clarke
 
 =cut
