@@ -76,6 +76,7 @@ use Chart::OFC2::Legend;
 use Chart::OFC2::Title;
 use Chart::OFC2::Extremes;
 use Chart::OFC2::ToolTip;
+use Chart::OFC2::Menu;
 use List::Util 'min', 'max';
 use List::MoreUtils 'any';
 
@@ -108,6 +109,7 @@ has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
 has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip', coerce  => 1);
+has 'menu'        	 => (is => 'rw', isa => 'Chart::OFC2::Menu', coerce  => 1);
 has 'bg_colour'      => (is => 'rw', isa => 'Str',  default => 'f8f8d8', alias => 'bg_color' );
 
 =head1 METHODS
@@ -171,7 +173,7 @@ sub render_chart_data {
     $self->auto_extremes();
 
     my $data;
-    foreach my $element( qw/title x_axis y_axis elements bg_colour tooltip y_axis_right y_legend x_legend/ ){
+    foreach my $element( qw/title menu x_axis y_axis elements bg_colour tooltip y_axis_right y_legend x_legend/ ){
         if( $self->$element ){
             $data->{$element} = $self->$element;
         }

@@ -27,12 +27,16 @@ coerce 'Chart::OFC2::PieValues'
 
     has 'values' => ( is => 'rw', isa => 'ArrayRef', );
     has 'texts'  => ( is => 'rw', isa => 'ArrayRef',  );
+	has 'tips'   => ( is => 'rw', isa => 'ArrayRef', );
+	has 'clicks' => ( is => 'rw', isa => 'ArrayRef', );
 
 =cut
 
 has 'values'  => ( is => 'rw', isa => 'ArrayRef', 'required' => 1);
 has 'labels'  => ( is => 'rw', isa => 'ArrayRef',  );
 has 'colours' => ( is => 'rw', isa => 'ArrayRef', );
+has 'tips'    => ( is => 'rw', isa => 'ArrayRef', );
+has 'clicks'  => ( is => 'rw', isa => 'ArrayRef', );
 
 
 =head1 METHODS
@@ -54,24 +58,30 @@ sub _new_from_arrayref {
     croak 'pass ArrayRef as argument'
         if not ref $arrayref_values ne 'ArrayRef';
     
-    my (@values, @labels, @colours);
+    my (@values, @labels, @colours, @tips, @clicks);
     foreach my $value (@{$arrayref_values}) {
         if (ref $value eq 'HASH') {
             push @values,  $value->{'value'};
             push @labels,  $value->{'label'};
             push @colours, $value->{'colour'};
+			push @tips,    $value->{'tip'};
+			push @clicks,  $value->{'click'};
         }
         else {
             push @values, $value;
             push @labels, undef;
             push @colours, undef;
+			push @tips, undef;
+			push @clicks, undef;
         }
     }
     
     return $class->new(
         'values'  => \@values,
         'labels'  => \@labels,
-        ((any { defined $_ } @colours) ? ('colours' => \@colours) : ()),
+        'tips'    => \@tips,
+        'clicks'  => \@clicks,
+        ((any { defined $_ } @colours) ? ('colours' => \@colours) : ())
     );
 }
 
@@ -87,12 +97,19 @@ sub TO_JSON {
     my @values_with_labels;
     my @values = @{$self->values};
     my @labels = @{$self->labels};
+    my @tips = @{$self->tips};
+    my @clicks = @{$self->clicks};
     for (my $i = 0; $i < @values; $i++) {
-        push @values_with_labels, (
-            defined $labels[$i]
-            ? { 'value' => $values[$i], 'label' => $labels[$i] }
-            : $values[$i]
-        );
+		my $value;
+		if (defined($labels[$i]) || defined($tips[$i]) || defined($clicks[$i])) {
+			$value = { value => $values[$i] };
+			$value->{label} = $labels[$i] if defined($labels[$i]);
+			$value->{tip} = $tips[$i] if defined($tips[$i]);
+			$value->{'on-click'} = $clicks[$i] if defined($clicks[$i]);
+		} else {
+			$value = $values[$i];
+		}
+        push(@values_with_labels, $value);
     }
     
     return \@values_with_labels;

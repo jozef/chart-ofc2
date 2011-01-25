@@ -46,6 +46,19 @@ sub main {
             ],
             'type' => 'pie',
             'values' => bless( {
+               'tips' => [ undef,
+                         undef,
+                         undef,
+                         undef,
+                         undef,
+                       ],
+               'clicks' => [
+                           undef,
+                           undef,
+                           undef,
+                           undef,
+                           undef
+                          ],
                'colours' => [
                   '#d01f3c',
                   '#356aa0',
