@@ -75,6 +75,7 @@ use Chart::OFC2::Bar;
 use Chart::OFC2::Title;
 use Chart::OFC2::Extremes;
 use Chart::OFC2::ToolTip;
+use Chart::OFC2::Menu;
 use List::Util 'min', 'max';
 use List::MoreUtils 'any';
 
@@ -101,6 +102,7 @@ has 'elements'       => (is => 'rw', isa => 'ArrayRef', default => sub{[]}, lazy
 has 'extremes'       => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1);
 has '_json'          => (is => 'rw', isa => 'Object',  default => sub { JSON::XS->new->pretty(1)->convert_blessed(1) }, lazy => 1);
 has 'tooltip'        => (is => 'rw', isa => 'Chart::OFC2::ToolTip', coerce  => 1);
+has 'menu'        	 => (is => 'rw', isa => 'Chart::OFC2::Menu', coerce  => 1);
 has 'bg_colour'      => (is => 'rw', isa => 'Str',  default => 'f8f8d8', alias => 'bg_color' );
 
 =head1 METHODS
@@ -168,6 +170,7 @@ sub render_chart_data {
         'x_axis'   => $self->x_axis,
         'y_axis'   => $self->y_axis,
         'tooltip'  => $self->tooltip,
+		'menu'     => $self->menu,
         'elements' => $self->elements,
         'bg_colour' => $self->bg_colour,
     });
