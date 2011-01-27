@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #use Test::More 'no_plan';
-use Test::More tests => 3;
+use Test::More tests => 5;
 use Test::Differences;
 
 use File::Slurp 'write_file';
@@ -125,6 +125,13 @@ sub main {
         },
         'candle element TO_JSON'
     );
+
+    my $chart_data = $chart->render_chart_data();
+    ok($chart_data, 'generate candle chart data');
+    
+    # write output to file
+    my $output_filename = File::Spec->catfile($BASE_PATH, 'candle-data.json');
+    ok(write_file($output_filename, $chart_data), 'saving candle-chart JSON to "'.$output_filename.'"');
 
     return 0;
 }
