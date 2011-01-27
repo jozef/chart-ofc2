@@ -4,9 +4,9 @@ Revision history for Chart::OFC2
         - added picture examples
         - y_axis_right, y_label and x_label, x_legend, y_legend (thanks to Robin Clarke)
         - new Candle chart type (thanks to Robin Clarke)
-        - tips for Pie values (thanks to Frederik Jung)
-        - clicks (thanks to Frederik Jung)
-        - chart menu (thanks to Frederik Jung)
+        - #64751 tips for Pie values (thanks to Frederik Jung)
+        - #64751 clicks (thanks to Frederik Jung)
+        - #64751 chart menu (thanks to Frederik Jung)
 
 0.07    11.12.2009
         - #50419 added "text" property to elements (thanks to Noe Snaterse)
