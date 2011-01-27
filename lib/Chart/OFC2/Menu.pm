@@ -28,7 +28,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08_02';
 
 coerce 'Chart::OFC2::Menu'
     => from 'HashRef'

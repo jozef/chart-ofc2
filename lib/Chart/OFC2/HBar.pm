@@ -38,7 +38,7 @@ in the middle of the bar.
 use Moose;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 extends 'Chart::OFC2::BarLineBase';
 

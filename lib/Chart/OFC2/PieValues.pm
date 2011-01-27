@@ -17,7 +17,7 @@ use MooseX::StrictConstructor;
 use Carp::Clan 'croak';
 use List::MoreUtils 'any';
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 coerce 'Chart::OFC2::PieValues'
     => from 'ArrayRef'

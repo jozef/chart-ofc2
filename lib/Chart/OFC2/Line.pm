@@ -32,7 +32,7 @@ Chart::OFC2::Line - OFC2 Line chart
 use Moose;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 extends 'Chart::OFC2::BarLineBase';
 
@@ -61,7 +61,7 @@ Dotted line chart
 package Chart::OFC2::Line::Dot;
 use Moose;
 use MooseX::StrictConstructor;
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 extends 'Chart::OFC2::Line';
 
 =head1 PROPERTIES
@@ -89,7 +89,7 @@ Hollow line chart
 package Chart::OFC2::Line::Hollow;
 use Moose;
 use MooseX::StrictConstructor;
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 extends 'Chart::OFC2::Line::Dot';
 
 =head1 PROPERTIES
@@ -114,7 +114,7 @@ Hollow line chart
 package Chart::OFC2::Area::Hollow;
 use Moose;
 use MooseX::StrictConstructor;
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 extends 'Chart::OFC2::Line::Dot';
 
 =head1 PROPERTIES

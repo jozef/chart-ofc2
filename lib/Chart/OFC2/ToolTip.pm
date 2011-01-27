@@ -29,7 +29,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 coerce 'Chart::OFC2::ToolTip'
     => from 'HashRef'

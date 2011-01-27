@@ -1,6 +1,6 @@
 Revision history for Chart::OFC2
 
-0.08    1 Jul 2010
+0.08    27 Jan 2011
         - added picture examples
         - y_axis_right, y_label and x_label, x_legend, y_legend (thanks to Robin Clarke)
         - new Candle chart type (thanks to Robin Clarke)

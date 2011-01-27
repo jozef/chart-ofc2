@@ -31,7 +31,7 @@ use Moose::Util::TypeConstraints;
 use MooseX::StrictConstructor;
 use MooseX::Aliases;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 =head1 PROPERTIES
 

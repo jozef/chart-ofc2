@@ -13,7 +13,7 @@ Chart::OFC2::Scatter - OFC2 Scatter chart
 use Moose;
 use MooseX::StrictConstructor;
 
-our $VERSION = '0.08_01';
+our $VERSION = '0.08_02';
 
 extends 'Chart::OFC2::Element';
 
