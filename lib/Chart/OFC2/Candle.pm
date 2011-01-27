@@ -64,15 +64,15 @@ extends 'Chart::OFC2::BarLineBase';
 
 =head1 PROPERTIES
 
-	has '+type_name' => (default => 'candle');
-    has '+tip'       => (is => 'rw', isa => 'Str', );
+    has '+type_name' => (default => 'candle');
+    has '+tip'       => (isa => 'Str', );
     has 'values'     => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]);
                                                                          $_[0]->process_values( $_[1] ) } );
 
 =cut
 
 has '+type_name' => ( default => 'candle');
-has '+tip'       => (is => 'rw', isa => 'Str', );
+has '+tip'       => ( isa => 'Str', );
 has 'values'     => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]);
                                                                      $_[0]->process_values( $_[1] ) } );
 

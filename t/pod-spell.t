@@ -28,5 +28,6 @@ add_stopwords(qw(
 	blog
 	RT
 	PositiveInt
+	Frederik
 ));
 all_pod_files_spelling_ok();
