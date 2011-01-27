@@ -379,6 +379,7 @@ order):
     Adam J. Foxson C<< <atom@cpan.org> >>
     Jeff Tam
     Robin Clarke C<< <rcl@cpan.org> >>
+    Frederik Jung
 
 =head1 SUPPORT
 

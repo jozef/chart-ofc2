@@ -4,8 +4,12 @@ examples/for-pod/bar-data.json
 examples/for-pod/bar.html
 examples/for-pod/expressInstall.swf
 examples/for-pod/open-flash-chart.swf
+examples/for-pod/pie-data.json
+examples/for-pod/pie.html
 examples/for-pod/swfobject.js
-examples/screenshots/bar-chart-test.png
+examples/screenshots/bar-chart.png
+examples/screenshots/pie-chart.png
+graph.png
 lib/Chart/OFC2.pm
 lib/Chart/OFC2/Axis.pm
 lib/Chart/OFC2/Bar.pm
@@ -18,6 +22,7 @@ lib/Chart/OFC2/HBarValues.pm
 lib/Chart/OFC2/Labels.pm
 lib/Chart/OFC2/Legend.pm
 lib/Chart/OFC2/Line.pm
+lib/Chart/OFC2/Menu.pm
 lib/Chart/OFC2/Pie.pm
 lib/Chart/OFC2/PieValues.pm
 lib/Chart/OFC2/Scatter.pm
@@ -39,6 +44,7 @@ t/07_hbar.t
 t/08_line.t
 t/09_scatter.t
 t/10_types.t
+t/11_candle.t
 t/distribution.t
 t/output/_footer.html
 t/output/_header.html
