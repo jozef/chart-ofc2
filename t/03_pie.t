@@ -23,7 +23,15 @@ exit main();
 
 sub main {
     my $chart = Chart::OFC2->new(
-        title        => 'Pie Chart',
+        title => 'Pie Chart',
+        menu  => Chart::OFC2::Menu->new(
+			values			=> [
+				{"type" => "camera-icon","text" => "Say hello","javascript-function" => "alert('Hello!')"},
+				{"type" => "camera-icon","text" => "Say bye","javascript-function" => "alert('Bye Bye')"},
+			],
+			colour			=> "#E0E0ff",
+			outline_colour	=>"#707070"
+        )
     );
     
     my $pie = Chart::OFC2::Pie->new(
@@ -31,6 +39,8 @@ sub main {
     );
     $pie->values([ (1 .. 5) ]);
     $pie->values->labels([qw( IE Firefox Opera Wii Other)]);
+    $pie->values->tips([undef, 'Firefox-Tip', 'Opera-Tip', undef, undef]);
+    $pie->values->clicks([undef, 'alert("Firefox")', undef, 'alert("Wii")', undef]);
     $pie->values->colours([ '#d01f3c', '#356aa0', '#C79810', '#73880A', '#D15600' ]);
 
     eq_or_diff(
@@ -47,16 +57,16 @@ sub main {
             'type' => 'pie',
             'values' => bless( {
                'tips' => [ undef,
-                         undef,
-                         undef,
+                         'Firefox-Tip',
+                         'Opera-Tip',
                          undef,
                          undef,
                        ],
                'clicks' => [
                            undef,
+                           'alert("Firefox")',
                            undef,
-                           undef,
-                           undef,
+                           'alert("Wii")',
                            undef
                           ],
                'colours' => [

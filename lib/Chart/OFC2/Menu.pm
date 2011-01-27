@@ -12,8 +12,8 @@ Chart::OFC2::Menu - OFC2 menu object
     $chart = Chart::OFC2->new(
         'menu'  => Chart::OFC2::Menu->new(
 			values			=> [
-				{"type":"camera-icon","text":"Hello","javascript-function":"save_image"},
-				{"type":"camera-icon","text":"Toggle old data","javascript-function":"toggle"}
+				{"type" => "camera-icon","text" => "Say hello","javascript-function" => "alert('Hello!')"},
+				{"type" => "camera-icon","text" => "Say bye",  "javascript-function" => "alert('Bye Bye')"},
 			],
 			colour			=> "#E0E0ff",
 			outline_colour	=>"#707070"
