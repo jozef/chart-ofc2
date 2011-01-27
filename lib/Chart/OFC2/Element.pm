@@ -53,7 +53,7 @@ has 'type_name'    => (is => 'rw', isa => enum([qw(
     scatter
     candle
 )]), required => 1);
-has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]); } );
+has 'values'       => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]); $_[0]->extremes->reset('y_right' => $_[1]); } );
 has 'extremes'     => (is => 'rw', isa => 'Chart::OFC2::Extremes',  default => sub { Chart::OFC2::Extremes->new() }, lazy => 1, coerce  => 1);
 has 'use_extremes' => (is => 'rw', isa => 'Bool',);
 has 'on-click'     => (is => 'rw', isa => 'Str', );

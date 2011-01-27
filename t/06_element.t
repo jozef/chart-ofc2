@@ -38,6 +38,8 @@ sub main {
             'x_axis_min' => undef, 
             'y_axis_max' => 5,
             'y_axis_min' => 1,
+            'y_axis_right_max' => 5,
+            'y_axis_right_min' => 1,
             'other'      => undef,
         },
         'extremes set'

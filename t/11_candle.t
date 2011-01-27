@@ -34,7 +34,13 @@ sub main {
             'max' => 'a',
             'min' => 'a',
         },
+        'y_axis_right' => {
+            'max' => 'a',
+            'min' => 'a',
+        },
         'bg_colour' => 'f0f8ff',
+        'x_legend' => 'x_legend',
+        'y_legend' => 'y_legend',
     );
     $chart->x_axis->labels->rotate(45);
     $chart->x_axis->labels->colour('#555555');

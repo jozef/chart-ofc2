@@ -9,7 +9,6 @@ examples/for-pod/pie.html
 examples/for-pod/swfobject.js
 examples/screenshots/bar-chart.png
 examples/screenshots/pie-chart.png
-graph.png
 lib/Chart/OFC2.pm
 lib/Chart/OFC2/Axis.pm
 lib/Chart/OFC2/Bar.pm

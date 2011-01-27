@@ -74,6 +74,7 @@ extends 'Chart::OFC2::BarLineBase';
 has '+type_name' => ( default => 'candle');
 has '+tip'       => ( isa => 'Str', );
 has 'values'     => (is => 'rw', isa => 'ArrayRef', trigger => sub { $_[0]->extremes->reset('y' => $_[1]);
+                                                                     $_[0]->extremes->reset('y_right' => $_[1]);
                                                                      $_[0]->process_values( $_[1] ) } );
 
 =head2 process_values()
